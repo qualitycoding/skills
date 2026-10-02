@@ -1,0 +1,29 @@
+{
+  "skill_name": "java-code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Can you review this class before I merge it? [pastes a 150-line OrderService that validates, prices, saves via JDBC and sends email, using ArrayList and null returns]",
+      "expected_output": "Request changes; SRP blocker with a concrete split into validator/pricer/repository/notifier/use case; immutability and Option findings grouped; coverage stated as estimated with a hand-built coverage map",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Here's my test class for the pricing module - is it any good? [pastes JUnit 5 tests mixing assertEquals, an assertThat(x) with nothing chained, a test with no assertion, and a try/fail/catch]",
+      "expected_output": "Blockers for the assertion-less test and the unchained assertThat; AssertJ rewrites of the JUnit assertions; assertThatThrownBy replacing try/fail/catch",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Review the repo I've uploaded (Maven, has target/site/jacoco/jacoco.xml).",
+      "expected_output": "Runs the scanner with the JaCoCo report, confirms hits by reading code, reports measured coverage per class below 95/90, report in the standard format with grouped findings",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Review this method: public int score(List<Round> rounds, int bonus) { int total = 0; for (Round r : rounds) { if (r.won()) total += r.points(); } // add the bonus\n return total + bonus; }",
+      "expected_output": "Major findings: non-final parameters and local; the for and if statements have no justifying comment (and '// add the bonus' is not a justification). Fix: final parameters, rounds.filter(Round::won).map(Round::points).fold(0, Integer::sum) + bonus, no control-flow statements.",
+      "files": []
+    }
+  ]
+}
