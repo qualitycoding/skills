@@ -173,7 +173,7 @@ Delegate routine searches, document and bibliography parsing, link and DOI check
 3. Any ambiguity the human does not answer adopts the proposed default. Record every answer and default in `plan/ASSUMPTIONS.md` with ID `A-###`.
 4. Do not proceed until the Goal, Profiles, Scope, Success Criteria, Subject tags, knowledge store, and every applicable intake block are fixed.
 
-**0.3.7 Knowledge store access** `[All]`. Verify read access to the knowledge store and record its location and the commit hash read in `.checkpoints/state.json`. If the store does not exist yet, record that: R0 then loads nothing, and the closing step (3.7.2) creates it. If it exists but cannot be read, record a Medium risk and continue without it; do not hold up research.
+**0.3.7 Knowledge store access** `[All]`. Verify read access to the knowledge store and record its location, the commit hash read, and whether it was readable in `.checkpoints/state.json` (`knowledge_store`). If the store does not exist yet, record that: R0 then loads nothing, and the closing step (3.7.2) creates it. If it exists but cannot be read, record a Medium risk and continue without it; do not hold up research.
 
 ---
 
@@ -228,6 +228,8 @@ After every sub-phase, research round, exploration round, proof review, and pre-
   "completed": [], "pending": [], "not_applicable": [],
   "artifacts": { "<path>": "<sha256>" },
   "tier_substitutions": [], "open_items": [],
+  "knowledge_store": { "location": "", "commit_read": "", "readable": true },
+  "lessons_loaded": [], "lessons_recorded": [], "knowledge_added": [],
   "updated_at": "<ISO-8601 UTC>"
 }
 ```
