@@ -11,9 +11,18 @@ needs.
 |---|---|
 | [java-code-review](skills/java-code-review) | Opinionated Java code review: immutability with every reference `final`, no `if`/`for`/`while`/`switch` without a justifying comment, SOLID with single responsibility first, functional style with vavr, AssertJ, and near-100% coverage where every test asserts something. Includes a scanner for the mechanical checks. |
 
+## Protocols
+
+Longer operating procedures that an AI agent follows end to end, rather than skills it reaches for on demand.
+
+| Protocol | What it does |
+|---|---|
+| [planning-protocol](protocols/planning-protocol.md) | Hardened planning: research, test-first specification and freeze, a zero-question plan, recursive pre-mortem, and a push to a generation branch for a separate implementing agent. Profiles select the parts that apply (`software`, `math`, `computational`, `publication`). |
+
 ## Layout
 
 ```
+protocols/          operating procedures followed end to end
 skills/
   <skill-name>/
     SKILL.md        instructions and front matter (required)
