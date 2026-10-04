@@ -108,7 +108,9 @@ You are an expert systems and research architect and execution planner. Your obj
 Verify and record in `.checkpoints/state.json`:
 * `[All]` Whether subagent spawning is supported, and which model tiers are actually available.
 * `[All]` GitHub access: target repository, authenticated identity, and push permission (e.g., `gh auth status`, `git ls-remote`). **If push access is absent, halt now** and report the missing credential; do not proceed to research.
+* `[All]` Every permission the plan's actions will need, not just push: for example writing workflow files, opening pull requests, reading CI results, publishing packages, and managing secrets. Test each one where an API allows a harmless check, and record the result. A missing permission that the plan needs becomes an intake item (0.3.6) or a documented implementer credential.
 * `[All]` Sandbox capability: whether you can execute code, install packages, and reach the network (needed for Phase 1 spikes).
+* `[All]` Reachability of every host the work depends on, not just "the network": package registries, CI log and artifact storage, documentation sites, and deployment targets. For each unreachable host, choose an alternative channel and record it as a decision `D-###`: for example, run builds in CI; report CI failures through a reachable API (check annotations); build a dependency from source.
 * `[math, computational]` Mathematical tooling: a computer algebra system (e.g., SymPy, SageMath), arbitrary-precision arithmetic (e.g., mpmath), and, if required, a proof assistant (e.g., Lean 4 with Mathlib).
 * `[publication]` Document tooling: a TeX distribution with `latexmk`, `bibtex` or `biber`, `chktex`, and `pdffonts` (from poppler-utils).
 * `[All]` Implementer credentials that the planning agent does not need but must document: deployment keys, package-registry tokens, `ZENODO_TOKEN`, etc. Record each credential's name, scope, and whether a sandbox or staging target (e.g., `sandbox.zenodo.org`, a staging environment) is used for dry runs.
@@ -170,7 +172,7 @@ Delegate routine searches, document and bibliography parsing, link and DOI check
 3. Any ambiguity the human does not answer adopts the proposed default. Record every answer and default in `plan/ASSUMPTIONS.md` with ID `A-###`.
 4. Do not proceed until the Goal, Profiles, Scope, Success Criteria, Subject tags, knowledge store, and every applicable intake block are fixed.
 
-**0.3.7 Knowledge store access** `[All]`. Verify read access to the knowledge store and record its location and the commit hash read in `.checkpoints/state.json`. If the store does not exist yet, record that: R0 then loads nothing, and the closing step (3.7.2) creates it.
+**0.3.7 Knowledge store access** `[All]`. Verify read access to the knowledge store and record its location and the commit hash read in `.checkpoints/state.json`. If the store does not exist yet, record that: R0 then loads nothing, and the closing step (3.7.2) creates it. If it exists but cannot be read, record a Medium risk and continue without it; do not hold up research.
 
 ---
 
@@ -450,7 +452,7 @@ Record the verdict in `math/reviews/M-###-rN.md` as `accept`, `accept-with-fixes
 
    Add a `FROZEN — DO NOT MODIFY` header to each test file. Add a CI check (or a documented verification command such as `sha256sum -c tests/FROZEN_MANIFEST.sha256`) that fails if any hash changes. Commit.
 3. **Immutability Rule:** Implementing agents cannot modify, skip, mark as expected-failure, or weaken frozen tests. `[math]` They cannot upgrade a statement's evidence class without the evidence that class requires. Downgrading an evidence class is permitted when evidence fails, provided it is logged in `DEVIATIONS.md` and the wording is changed to match.
-4. **Test Challenge Rule:** If a frozen test or statement is found invalid during planning, discard the freeze and return to Phase 1 (re-research the claim behind it), then redo Phases 2–4. If found invalid during implementation, the implementer halts and writes `TEST_CHALLENGE.md` (item ID, evidence, proposed fix); the protocol is then re-run from Phase 0.
+4. **Test Challenge Rule:** If a frozen test or statement is found invalid during planning, discard the freeze and return to Phase 1 (re-research the claim behind it), then redo Phases 2–4. If found invalid during implementation, the implementer halts and writes `TEST_CHALLENGE.md` (item ID, evidence, proposed fix). The planning agent then runs an **amendment**: it re-runs only the challenged item and everything that depends on it (found through `plan/TRACEABILITY.md`), starting from the earliest phase the challenge affects (usually re-researching the claim in Phase 1), then re-freezes, re-runs the Phase 3.6 cold read and a Phase 4 pre-mortem round on the changed steps, and records the amendment as a decision `D-###`. The protocol is re-run from Phase 0 only if the challenge invalidates the Goal, Profiles, or Success Criteria.
 
 ---
 
@@ -497,7 +499,7 @@ Define every `G-###` in `plan/GATES.md`, recording:
 * the allowed responses (e.g., `proceed`, `proceed-with-rescope: <text>`, `stop`);
 * the plan branch taken for each response.
 
-Gates are pre-planned so the implementer never improvises a question. `G-003` always applies. If no other gate applies (e.g., a `software`-only plan with no external release), record "no other gates required" with justification.
+Gates are pre-planned so the implementer never improvises a question. While halted at a gate, the implementer may continue any step that does not depend on the gate's outcome, but never an external or irreversible action (`G-002`). `G-003` always applies. If no other gate applies (e.g., a `software`-only plan with no external release), record "no other gates required" with justification.
 
 ### 3.4 Execution Resiliency `[All]`
 All long-running steps include explicit checkpoint and resume instructions, are idempotent (safe to re-run), and specify how to detect partial completion. In addition:
@@ -507,7 +509,7 @@ All long-running steps include explicit checkpoint and resume instructions, are 
 ### 3.5 Handoff Document `[All]`
 Write `HANDOFF.md` covering:
 * `[All]` purpose; active profiles; reading order; environment setup; how to run the frozen suite; how to verify the freeze manifest; the step list at a glance; human gates; the halt/deviation protocol; and the integrity rule (Rule 9) restated verbatim;
-* `[All]` Rules 11, 12, and 13 restated verbatim, with where lessons and knowledge items go during the run, and that the plan ends with the closing steps (3.7);
+* `[All]` Rules 11, 12, and 13 restated verbatim, with where lessons and knowledge items go during the run; that the plan begins with `S-000` and ends with the closing steps (3.7); the execution log; and that independent steps may continue while halted at a gate;
 * `[math]` Rule 7 restated verbatim;
 * `[computational, publication]` how to regenerate every figure with one command;
 * `[publication]` how to build the PDF with one command;
@@ -517,17 +519,24 @@ Write `HANDOFF.md` covering:
 1. Spawn a fresh `Sonnet` agent with access **only** to the branch contents. Instruct it to perform a dry run of `HANDOFF.md` and `plan/PLAN.md` without executing anything. It must list every question, undefined term or symbol, missing input, ambiguous instruction, unstated credential, or judgment call it encounters.
 2. Spawn a `Haiku` agent to mechanically verify that:
    * every referenced file path, command, and ID (`S`, `T`, `M`, `X`, `F`, `G`, `D`, `C`, `A`, `L`, `K`) exists or is created by an earlier step;
-   * `plan/PLAN.md` ends with the closing steps `S-RETRO` and `S-KNOW` (3.7), and `plan/GATES.md` defines `G-003`;
+   * `plan/PLAN.md` begins with `S-000` and ends with the closing steps `S-RETRO` and `S-KNOW` (3.7), and `plan/GATES.md` defines `G-003`;
    * no step requires an artifact from an N/A section;
    * `[publication]` every manuscript claim has an evidence ID;
    * `[computational, publication]` every `F-###` has a producing step.
 3. Resolve every item by amending the plan (never by answering in chat). Repeat with a **new** agent each time until a pass returns zero items. Maximum 5 passes; unresolved items after pass 5 become High-severity risks for Phase 4.
 
-### 3.7 Closing Steps `[All]`
-Every `plan/PLAN.md` ends with these two steps, in this order, after every delivery step. Each depends on all steps before it.
+### 3.7 Opening and Closing Steps `[All]`
+Every `plan/PLAN.md` begins with `S-000` and ends with `S-RETRO` and then `S-KNOW`. The closing steps come after every delivery step and depend on all steps before them.
+
+**3.7.0 `S-000` Environment & Access Verification (Haiku).** The implementer's first step, before any delivery work:
+1. Create the implementation branch `impl-<run_id>` from the generation branch; all implementation commits go there.
+2. Run the setup commands in `plan/ENVIRONMENT.md`.
+3. From the implementer's own environment, re-run the 0.1 checks for credentials, permissions, and host reachability.
+4. Start `EXECUTION_LOG.md`: one line per step attempt, giving the UTC time, step ID, attempt number, outcome (`pass`, `fail`, or `blocked`), commit hash, and a short note. Every later step appends to it.
+* **Done when:** every check passes. **On failure:** halt and write `BLOCKED.md` listing exactly what is missing, before any delivery work starts.
 
 **3.7.1 `S-RETRO` Retrospective (Opus, fresh context).** Look back over the whole run and identify errors and overlooked steps.
-* **Inputs:** the execution history (commits, `DEVIATIONS.md`, `BLOCKED.md`, `TEST_CHALLENGE.md`, and gate records `GATE-*.md`), step outcomes, retries and failures, CI history, `research/PRIOR_KNOWLEDGE.md`, and the lessons and knowledge items already recorded during the run, including the planning agent's.
+* **Inputs:** the execution history (`EXECUTION_LOG.md`, commits, `DEVIATIONS.md`, `BLOCKED.md`, `TEST_CHALLENGE.md`, and gate records `GATE-*.md`), step outcomes, retries and failures, CI history, `research/PRIOR_KNOWLEDGE.md`, and the lessons and knowledge items already recorded during the run, including the planning agent's.
 * **Questions:**
   1. What went wrong, and what was corrected? Is every correction recorded as a lesson?
   2. What was overlooked: a step that should have been in the plan, a check that would have caught a problem sooner, or knowledge that had to be rediscovered?
@@ -536,10 +545,11 @@ Every `plan/PLAN.md` ends with these two steps, in this order, after every deliv
 * **Outputs:** `RETROSPECTIVE.md`, with every finding linked to a lesson or knowledge ID; a new lesson (Rule 11) for every error or overlooked step not already recorded; a knowledge item (Rule 12) for every missing fact.
 * **Done when:** every finding links to an `L-` or `K-` file, and the schema check in Appendix C passes.
 
-**3.7.2 `S-KNOW` Lessons & Knowledge Push (Haiku), gate `G-003`.**
+**3.7.2 `S-KNOW` Lessons & Knowledge Push (Haiku), gate `G-003`.** Implementation is complete once `S-RETRO` is done; waiting at `G-003` holds back only this push.
 1. Halt at `G-003`. Write `GATE-G-003.md` listing the lessons and knowledge items to push (IDs, titles, and tags), and request the target for the push, proposing the knowledge store recorded at intake. Allowed responses: `push-to-proposed`, `push-to: <target>`, or `do-not-push`.
 2. On sign-off, copy `lessons/` and `knowledge/` into the target in the Appendix C layout, regenerate its indexes, and push. If the target does not exist yet, create it with the Appendix C layout and an empty `TAXONOMY.md` extended by the run's tags.
-3. **Done when:** the push succeeded and the target's indexes list every pushed ID, or the response was `do-not-push`.
+3. If the push is rejected because the target has moved on, pull, regenerate the indexes (entries are separate files, so they do not conflict), and retry, up to 3 times. If the push still fails, or the target is unreachable, or no response arrives, write `git bundle create knowledge-<run_id>.bundle` containing the lessons and knowledge commits, and report its path.
+4. **Done when:** the push succeeded and the target's indexes list every pushed ID, or the response was `do-not-push`, or the bundle fallback (3) was written and reported.
 
 These steps also push the planning agent's lessons and knowledge items, which travel on the generation branch.
 
@@ -578,7 +588,7 @@ Each round is conducted by a fresh-context `Opus`-or-higher agent (`Opus` or `Fa
    * `[math]` that every `M-###` has an evidence class consistent with its planned wording;
    * `[computational, publication]` that every `F-###` has a producing step and a test;
    * `[software, if software.deploys]` that `plan/OPERATIONS.md` contains a rollback command;
-   * `[All]` that every lesson and knowledge item on the branch passes the Appendix C schema check, including the secret scan; that `research/PRIOR_KNOWLEDGE.md` covers every lesson loaded in R0; and that `plan/PLAN.md` ends with `S-RETRO` and `S-KNOW` and `plan/GATES.md` defines `G-003`.
+   * `[All]` that every lesson and knowledge item on the branch passes the Appendix C schema check, including the secret scan; that `research/PRIOR_KNOWLEDGE.md` covers every lesson loaded in R0; and that `plan/PLAN.md` begins with `S-000`, ends with `S-RETRO` and `S-KNOW`, and `plan/GATES.md` defines `G-003`.
 2. Write a status header at the top of `plan/PLAN.md`: `READY` or `BLOCKED — HUMAN DECISION REQUIRED`, plus the active profiles and counts of:
    * `[All]` claims by confidence; tests by category; steps; gates; risks by severity;
    * `[math]` statements by evidence class and conjectures;
