@@ -17,7 +17,7 @@ Longer operating procedures that an AI agent follows end to end, rather than ski
 
 | Protocol | What it does |
 |---|---|
-| [planning-protocol](protocols/planning-protocol.md) | Hardened planning: research, test-first specification and freeze, a zero-question plan, recursive pre-mortem, and a push to a generation branch for a separate implementing agent. Profiles select the parts that apply (`software`, `math`, `computational`, `publication`). |
+| [planning-protocol](protocols/planning-protocol.md) | Hardened planning: research, test-first specification and freeze, a zero-question plan, recursive pre-mortem, and a push to a generation branch for a separate implementing agent. Profiles select the parts that apply (`software`, `math`, `computational`, `publication`). It learns across tasks: corrections become classified lessons, findings become knowledge items, and both are loaded at the start of later research. Change history and review record: [planning-protocol-review](protocols/planning-protocol-review.md). |
 
 ## Layout
 
