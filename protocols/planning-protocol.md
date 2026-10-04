@@ -94,6 +94,7 @@ You are an expert systems and research architect and execution planner. Your obj
     * A lesson carries the *identifying information* that lets a future agent recognise the situation before repeating the mistake: the trigger (the circumstances and observable signals), the mistake, the correction, a prevention rule written as one imperative, checkable instruction, and a detection check.
     * Every lesson is classified with tags from the store taxonomy (Appendix C), so lessons can be read as a group: for example, all `tech:java` lessons, or all `domain:audio` lessons.
     * If the mistake repeats a lesson loaded in R0, the new lesson names it in `recurrence_of` and strengthens its prevention rule; a recurrence means the earlier rule did not work.
+    * If the same mistake recurs within the run, increase `occurrences` on the run's existing lesson and add the new evidence, instead of writing a second file.
 12. **Knowledge Base** `[All]`: All supporting research and derived knowledge is recorded as knowledge items, so later work can reuse it instead of researching it again. Whenever either agent discovers a new fact about the task's Subject (its technologies, formats, APIs, platforms, tools, mathematical objects, or venues), it adds an item before continuing.
     * Each item is one file, `knowledge/K-<YYYYMMDDTHHMMSSZ>-<slug>.md`, on the working branch, using the template in Appendix B. It records the fact, its source and locator, the version it applies to, its confidence, and the claim it derives from (`C-###`), if any.
     * Every item is classified with tags from the store taxonomy (Appendix C), including at least one `subject:` tag, so it can be found again.
@@ -238,7 +239,7 @@ Research proceeds in rounds. Each round is logged in `research/rounds/round-N.md
 **R0 — Prior Knowledge (Sonnet, then Opus review):** Before decomposing the problem, load what earlier tasks learned from the knowledge store (Rule 13):
 1. Read every active lesson relevant to the problem or its implementation, by the matching rule in Appendix C. For example, a VST instrument loads `domain:audio` lessons; a Java implementation loads `tech:java` lessons; a Maven build loads `tech:maven` lessons. Also read every lesson tagged `applies:all`.
 2. Read every current knowledge item whose tags match the same way.
-3. Record in `research/PRIOR_KNOWLEDGE.md` each lesson ID with how its prevention rule is applied: a decision `D-###`, a test `T-###`, a check in a step `S-###`, or a risk `R-###`. If a lesson does not apply, say why.
+3. Read lessons in order of severity, then most recent first. At the top of `research/PRIOR_KNOWLEDGE.md`, compile every applicable prevention rule into a checklist; the cold read (3.6) and the pre-mortem (Phase 4) work from this checklist instead of re-reading the lessons. Below it, record each lesson ID with how its prevention rule is applied: a decision `D-###`, a test `T-###`, a check in a step `S-###`, or a risk `R-###`. If a lesson does not apply, say why.
 4. Record each knowledge item used, and seed `research/claims.json` from it. An item counts as one source, at its recorded tier and confidence, only if its version matches the pinned version or it is version-independent; otherwise it becomes an open question for R2. Load-bearing claims still need the termination criteria below.
 
 **R1 — Decompose (Opus):** Build a question tree in `research/QUESTIONS.md`, with one branch per active profile:
@@ -263,7 +264,7 @@ Each leaf names the decision, test, statement, figure, or manuscript section it 
 ```
 `evidence_class` is `n/a` for non-mathematical claims.
 
-In the same commit, add each new fact as a knowledge item (Rule 12), with `derived_from` set to its claim ID, and supersede any item whose fact has changed.
+In the same commit, add each new fact as a knowledge item (Rule 12), with `derived_from` set to its claim ID, and supersede any item whose fact has changed. These items may be generated mechanically from the new `claims.json` entries (`Haiku`): `claim` becomes `statement`, the first source becomes `source`, and the claim's tags and pinned version carry over.
 
 Source tiers:
 * **Tier 1:** official docs at the pinned version, source code, specifications, peer-reviewed papers and monographs (with an exact locator), and venue author guidelines.
@@ -475,7 +476,9 @@ Every step in `plan/PLAN.md` uses this exact structure:
 - Gate: <G-### if this step ends at a human gate, else "none">
 - Relevant decisions/claims: <D-###, C-###>
 - Lessons applied: <L-… IDs whose prevention rules this step implements, or "none">
+- Exclusive resources: <resources this step must not share with a concurrent step (a database, a device, a CI runner, a lock file), or "none">
 ```
+A step may start as soon as every step in its `Depends on` list has passed. When subagents are available, independent steps run concurrently unless they list the same exclusive resource.
 
 ### 3.2 Decision Rules `[All]`
 For every fork the implementer could face, write an explicit **if → then** rule in `plan/DECISIONS.md`. Cover:
@@ -535,7 +538,7 @@ Every `plan/PLAN.md` begins with `S-000` and ends with `S-RETRO` and then `S-KNO
 4. Start `EXECUTION_LOG.md`: one line per step attempt, giving the UTC time, step ID, attempt number, outcome (`pass`, `fail`, or `blocked`), commit hash, and a short note. Every later step appends to it.
 * **Done when:** every check passes. **On failure:** halt and write `BLOCKED.md` listing exactly what is missing, before any delivery work starts.
 
-**3.7.1 `S-RETRO` Retrospective (Opus, fresh context).** Look back over the whole run and identify errors and overlooked steps.
+**3.7.1 `S-RETRO` Retrospective (Opus, fresh context).** Look back over the whole run and identify errors and overlooked steps. It is one pass over the records: a `Haiku` agent first collects the inputs into a single digest, and the retrospective re-runs nothing and changes no deliverable.
 * **Inputs:** the execution history (`EXECUTION_LOG.md`, commits, `DEVIATIONS.md`, `BLOCKED.md`, `TEST_CHALLENGE.md`, and gate records `GATE-*.md`), step outcomes, retries and failures, CI history, `research/PRIOR_KNOWLEDGE.md`, and the lessons and knowledge items already recorded during the run, including the planning agent's.
 * **Questions:**
   1. What went wrong, and what was corrected? Is every correction recorded as a lesson?
@@ -617,6 +620,7 @@ title: CI logs are stored on a host the sandbox cannot reach
 status: active                 # active | superseded | retired
 supersedes: []                 # IDs this lesson replaces
 recurrence_of: null            # ID of an earlier lesson whose mistake this repeats
+occurrences: 1                 # times the mistake happened in this run
 severity: High                 # Critical | High | Medium | Low (Global Rule 4)
 tags: [tech:github-actions, phase:verification, kind:environment]
 recorded_by: implementer       # planner | implementer
@@ -679,5 +683,33 @@ Use an existing tag (or one of its aliases in `TAXONOMY.md`) whenever one fits. 
 
 **Matching rule (R0).** A lesson or item is relevant when any of its `domain:`, `tech:`, or `subject:` tags equals one of the task's tags or an alias of one, or when it carries `applies:all`. Superseded and retired entries are not loaded.
 
-**Schema check.** Every entry has all front-matter fields of its template; its `id` matches its file name; every tag has a known facet; and it matches no secret pattern (for example `github_pat_`, `ghp_`, `AKIA`, `-----BEGIN .*PRIVATE KEY-----`).
+**Schema check.** Every entry has all front-matter fields of its template; its `id` matches its file name; every tag has a known facet, and every knowledge item has a `subject:` tag; and no entry matches a secret pattern. Run this from the root of the working branch or the store; exit status 0 means every entry is valid:
+```python
+import pathlib, re, sys
+REQUIRED = {
+    "L": ["id", "title", "status", "supersedes", "recurrence_of", "occurrences", "severity", "tags", "recorded_by", "run", "recorded_at"],
+    "K": ["id", "statement", "status", "supersedes", "tags", "applies_to_version", "source", "confidence", "derived_from", "discovered_by", "run", "recorded_at"],
+}
+FACETS = ("domain:", "tech:", "subject:", "phase:", "kind:", "applies:")
+SECRET = re.compile(r"github_pat_[A-Za-z0-9_]{20,}|ghp_[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----")
+problems = []
+for path in sorted([*pathlib.Path(".").glob("lessons/**/L-*.md"), *pathlib.Path(".").glob("knowledge/**/K-*.md")]):
+    text = path.read_text(encoding="utf-8")
+    parts = text.split("---", 2)
+    head = parts[1] if text.startswith("---") and len(parts) == 3 else ""
+    fields = dict(re.findall(r"^(\w+):[ \t]*(.*)$", head, re.M))
+    problems += [f"{path}: missing field '{f}'" for f in REQUIRED[path.name[0]] if f not in fields]
+    if fields.get("id", "").split("#")[0].strip() != path.stem:
+        problems.append(f"{path}: id does not match the file name")
+    tags = re.findall(r"[\w-]+:[\w.-]+", fields.get("tags", ""))
+    if not tags:
+        problems.append(f"{path}: no tags")
+    problems += [f"{path}: unknown tag facet '{t}'" for t in tags if not t.startswith(FACETS)]
+    if path.name.startswith("K-") and not any(t.startswith("subject:") for t in tags):
+        problems.append(f"{path}: no subject: tag")
+    if SECRET.search(text):
+        problems.append(f"{path}: possible secret")
+print("\n".join(problems) or "all entries valid")
+sys.exit(1 if problems else 0)
+```
 
