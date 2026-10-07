@@ -53,4 +53,4 @@ No valuable gaps. Considered and declined, because none would speed implementati
 - automatic tag suggestion.
 
 ## Open decisions for the owner
-- The default knowledge store proposed at intake is a repository named `agent-knowledge` under the target repository's owner. Each run asks at intake, so a different location can be given at any time.
+- The default knowledge store proposed at intake is a repository named `knowledge` under the target repository's owner. Each run asks at intake, so a different location can be given at any time.
