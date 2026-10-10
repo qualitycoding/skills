@@ -1,7 +1,15 @@
 # Planning protocol: change and review record
 
-Current version: **v3.2** (`planning-protocol.md`), recorded 2026-10-04.
-Status: **no further valuable gaps found** (review loop saturated after round 4).
+Current version: **v3.3** (`planning-protocol.md`), recorded 2026-10-10.
+Status: **Round 5 completed — Checkpointing & Zero-Context State Resumption gaps resolved.**
+
+## Requested changes (v3.2 → v3.3)
+
+| Request | Where it lives |
+|---|---|
+| Periodically save planning agent state and progress to the project repo as a checkpoint to prevent data loss on reset | Global Rule 5; Phase 1.2.1 |
+| Include full execution context (objective, call stack, step pointer, scratchpad, in-flight action) and active variable states in checkpoint so a fresh agent with no context can resume planning | Phase 1.2.2 |
+| When planning agent resumes, check the repo for the most recent checkpoint to pick up exactly where it left off | Phase 1.2.3 |
 
 ## Requested changes (v3.1 → v3.2)
 
@@ -51,6 +59,13 @@ No valuable gaps. Considered and declined, because none would speed implementati
 - confidentiality rules beyond the existing no-secrets, no-personal-data rule;
 - support for several stores (personal and team);
 - automatic tag suggestion.
+
+### Round 5: Agent Interruption & State Recovery Gaps
+| Gap | Why it causes failure / data loss | Resolution |
+|---|---|---|
+| Checkpointing only on sub-phase boundaries | When an agent is stopped by external circumstances (timeouts, process reset, preemptions) during long research or step decomposition, all intermediate progress is lost | 1.2.1 Periodic cadence (every 3 actions / 3 min) and pre-action flush |
+| Checkpoint schema lacked active variables and execution context | A fresh agent starting after a reset had no access to active constraints, open questions, draft step specifications, call stack, or scratchpad | 1.2.2 Full `execution_context` and `active_variables` schema |
+| Undefined resumption discovery and reconciliation | Protocol lacked explicit procedure for locating the latest checkpoint, verifying disk artifact integrity, and resuming interrupted operations idempotently | 1.2.3 Zero-Context Resumption Protocol |
 
 ## Open decisions for the owner
 - The default knowledge store proposed at intake is a repository named `knowledge` under the target repository's owner. Each run asks at intake, so a different location can be given at any time.
