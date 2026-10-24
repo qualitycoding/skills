@@ -10,6 +10,9 @@ needs.
 | Skill | What it does |
 |---|---|
 | [java-code-review](skills/java-code-review) | Opinionated Java code review: immutability with every reference `final`, no `if`/`for`/`while`/`switch` without a justifying comment, SOLID with single responsibility first, functional style with vavr, AssertJ, and near-100% coverage where every test asserts something. Includes a scanner for the mechanical checks. |
+| [tsan-unexpected-memory-mapping](skills/tsan-unexpected-memory-mapping) | Fixes ThreadSanitizer's "unexpected memory mapping" startup failure: checks `vm.mmap_rnd_bits` (above 28 on x86_64 breaks TSan) and reruns under `setarch -R`. |
+| [timeless-skill-writing](skills/timeless-skill-writing) | Rewrites time-relative wording (newer, recent, current, higher) in skills and runbooks into fixed baselines, explicit version bounds and runtime checks. |
+| [publish-skills-to-repo](skills/publish-skills-to-repo) | Standing rule: every skill, instruction or protocol created or modified, including this one, is committed and pushed to this repo. |
 
 ## Protocols
 
