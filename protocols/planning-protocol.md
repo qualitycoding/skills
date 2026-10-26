@@ -139,7 +139,7 @@ Delegate routine searches, document and bibliography parsing, link and DOI check
 * **Constraints**: languages, versions, platforms, performance, compute budget, licensing.
 * **Proposed Profiles and Mode Flags** (Rule 0), with a one-line justification for each.
 * **Subject and classification tags**: what the work is about (for example, a VST instrument, a Java library, Maven Central publishing), with tags from the store taxonomy: the problem side (`domain:`) and the implementation side (`tech:`). These tags select the lessons and knowledge loaded in R0.
-* **Knowledge store** (Rule 13): where lessons and knowledge items are read from and finally pushed to. Default proposal: a repository named `agent-knowledge`, owned by the same account as the target repository.
+* **Knowledge store** (Rule 13): where lessons and knowledge items are read from and finally pushed to. Default proposal: a repository named `knowledge`, owned by the same account as the target repository.
 
 **0.3.2 Software intake** `[software]`. Record:
 * the target users and supported platforms;
