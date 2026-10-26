@@ -69,3 +69,9 @@ No valuable gaps. Considered and declined, because none would speed implementati
 
 ## Open decisions for the owner
 - The default knowledge store proposed at intake is a repository named `knowledge` under the target repository's owner. Each run asks at intake, so a different location can be given at any time.
+
+## Corrections
+
+| Date | Correction | Reason |
+|---|---|---|
+| 2026-10-27 | 0.3.1 default knowledge-store proposal renamed `agent-knowledge` → `knowledge` | The default did not match the actual store (`qualitycoding/knowledge`); a planner adopted it silently and the human had to correct it mid-run. Recorded in the run as a lesson: never adopt the protocol default without probing and confirming with the human. |
