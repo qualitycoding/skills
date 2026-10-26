@@ -1,7 +1,16 @@
 # Planning protocol: change and review record
 
-Current version: **v3.3** (`planning-protocol.md`), recorded 2026-10-10.
+Current version: **v3.4** (`planning-protocol.md`), recorded 2026-10-27.
 Status: **Round 5 completed — Checkpointing & Zero-Context State Resumption gaps resolved.**
+
+## Requested changes (v3.3 → v3.4)
+
+| Request | Where it lives |
+|---|---|
+| After pre-mortem, a step that reviews assumptions and premises; false ones recorded as lessons and potentially knowledge, triggering normal plan iteration to apply the change | Phase 4.7 (Assumption & Premise Audit); artifact `premortem/ASSUMPTION_AUDIT.md`; amendment machinery via 2E.4; wired into 3.6 and 5.1 checks |
+| Traditional code review step: bad code, anti-patterns, untested code, security issues/vulnerabilities, outdated or superseded dependencies | 3.8 `S-REVIEW`; artifact `reviews/CODE_REVIEW.md` |
+| Adversarial review step that tries to break the app by challenging assumptions | 3.8 `S-ADVERSARIAL`; artifact `reviews/ADVERSARIAL_REVIEW.md` |
+| Option to run a mutation test | 3.8 `S-MUTATE` (optional, pre-decided tool/scope/score target; opt-out recorded as `D-###`); artifact `reviews/MUTATION.md` |
 
 ## Requested changes (v3.2 → v3.3)
 
