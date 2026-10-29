@@ -1,7 +1,19 @@
 # Planning protocol: change and review record
 
-Current version: **v3.4** (`planning-protocol.md`), recorded 2026-10-27.
+Current version: **v3.5** (`planning-protocol.md`), recorded 2026-10-27.
 Status: **Round 5 completed — Checkpointing & Zero-Context State Resumption gaps resolved.**
+
+## Requested changes (v3.4 → v3.5)
+
+Hardening from the first implementation run of a v3.4 plan (guitar-amp-vst): review found "green" CI that had not verified anything.
+
+| Request / observed failure | Where it lives |
+|---|---|
+| A CI job stayed green because `|| true` swallowed a tool's bad-flag error, and a later upload step found no report | Rule 14 (no swallowed failures; artifact post-conditions); 3.1 Done-when post-conditions; 3.6 and 5.1 idiom checks; severity rubric: silently-green verification is Critical |
+| A bench step was informational, so a 15% CPU budget failing by >2x on one platform never gated | Rule 14 (budgets gate; per-environment targets; relaxing a target is a human-gate decision) |
+| A regression check ("within X% of baseline") had no stored baseline to compare against | Rule 14 (baselines bootstrap, else absolute thresholds) |
+| A literal CLI flag from the plan did not exist in the pinned tool version; the option lived in a config file in that version; the pinned tool version itself turned out to exist only as a beta | 1.3.6 Command & Pin Verification (pins must exist; commands spike-run or doc-verified against the pinned version; config files are part of the pin) |
+| Implementation substitutions (beta pin, extra packages, timeout, .gitattributes) were never logged | Rule 14 (substitutions are deviations, logged when made); 3.7.1 question 1a verifies DEVIATIONS.md/EXECUTION_LOG.md completeness by diffing against ENVIRONMENT.md |
 
 ## Requested changes (v3.3 → v3.4)
 
