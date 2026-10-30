@@ -1,7 +1,27 @@
 # Planning protocol: change and review record
 
-Current version: **v3.5** (`planning-protocol.md`), recorded 2026-10-27.
-Status: **Round 5 completed — Checkpointing & Zero-Context State Resumption gaps resolved.**
+Current version: **v3.6** (`planning-protocol.md`), recorded 2026-10-30.
+Status: **Round 6 completed — ephemeral-environment (sandbox recycling) protections and universal push cadence added.**
+
+## Requested changes (v3.5 → v3.6)
+
+Hardening from the sonic-destruction-vst implementation run in a heavily recycled
+Kimi-cloud sandbox (~16+ container recycles in one session), requested by the run
+owner. Scope rule from the request: the recycling protections apply **only** on
+environments that actually recycle (observed: Kimi on cloud; Kimi on localhost
+unknown → treat as ephemeral; Claude on cloud/remote observed stable → N/A), while
+pushing to the remote after every successful chunk is **active on all platforms**.
+
+| Request / observed failure | Where it lives |
+|---|---|
+| Sandbox containers recycled mid-run: `/tmp`/`/var/tmp` wiped, staged toolchains lost, background processes reaped at call boundaries/deadline kills; builds exceeding a container lifetime could never finish (ASan build never completed) | 0.1 execution-environment class probe (`stable` vs `ephemeral`, with observed class table); new 1.5 Ephemeral-Environment Protections `[ephemeral]` (durable-surface rule, turn-start restaging with exec-bit restoration, checkpointed resumable builds, ordering invariants learned from real failures, right-sizing steps to container lifetimes, CI for long work); 3.4 resiliency hook |
+| Exec bits stripped on every copy from the fuse mount; restored binaries refused to run until re-chmodded | 1.5 item 2 |
+| Dependency source-dir overrides passed as env vars were silently ignored by CMake; configure re-touched generated headers and invalidated precompiled objects | 1.5 item 4 |
+| A long verification dimension (ASan+UBSan fuzz) could not complete locally and risked being silently treated as green | 1.5 items 5–6 (environment-blocked + CI-named, never reported as a pass) |
+| Remote could drift from local when pushes were batched; a PAT died mid-run and work queued unpushed | Global Rule 6 push cadence `[All]`: commit-and-push after every successful chunk on **all** platforms, with `ls-remote` verification, backoff retries, and mismatch reporting |
+
+Supporting change: Rule 0.3 gains the `[ephemeral]` environment tag; 3.5 HANDOFF
+restates Rule 6 (with push cadence) alongside Rules 11–13.
 
 ## Requested changes (v3.4 → v3.5)
 
