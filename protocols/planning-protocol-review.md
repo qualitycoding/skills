@@ -1,7 +1,17 @@
 # Planning protocol: change and review record
 
-Current version: **v3.6** (`planning-protocol.md`), recorded 2026-10-30.
-Status: **Round 6 completed — ephemeral-environment (sandbox recycling) protections and universal push cadence added.**
+Current version: **v3.7** (`planning-protocol.md`), recorded 2026-11-01.
+Status: **Round 7 completed — lesson store split from knowledge store; lessons ultimately push to the `Lessons` repo.**
+
+## Requested changes (v3.6 → v3.7)
+
+Requested by the run owner: lessons learned under the protocol must ultimately live in the existing `qualitycoding/Lessons` repository, not in the same default store as factual knowledge items.
+
+| Request / observed mismatch | Where it lives |
+|---|---|
+| The protocol's default store sent lessons and knowledge items to one repository, while the Lessons repo is the canonical lesson store | Title/version bump; Global Rule 13 renamed **Lesson & Knowledge Stores** with default lesson store `Lessons` and default knowledge store `knowledge`; 0.3.1 intake default, 0.3.6 readiness check, 0.3.7 access check, checkpoint schema (`lesson_store`, `knowledge_store`), R0 wording, HANDOFF restatement |
+| Gate `G-003`/`S-KNOW` treated lessons and knowledge as one push target | Rule 10 `G-003`; 3.7.2 splits the closing push into lesson-store and knowledge-store pushes, with separate index regeneration, retry limits, and bundle fallbacks |
+| Appendix C described a single combined store layout | Appendix C now documents the split `Lessons` and `knowledge` repo layouts, generated indexes, schema scripts, and store-specific matching |
 
 ## Requested changes (v3.5 → v3.6)
 
@@ -109,10 +119,11 @@ No valuable gaps. Considered and declined, because none would speed implementati
 | Undefined resumption discovery and reconciliation | Protocol lacked explicit procedure for locating the latest checkpoint, verifying disk artifact integrity, and resuming interrupted operations idempotently | 1.2.3 Zero-Context Resumption Protocol |
 
 ## Open decisions for the owner
-- The default knowledge store proposed at intake is a repository named `knowledge` under the target repository's owner. Each run asks at intake, so a different location can be given at any time.
+- The default lesson store proposed at intake is a repository named `Lessons` under the target repository's owner; the default knowledge store remains a repository named `knowledge` under the same owner. Each run asks at intake, so different locations can be given at any time.
 
 ## Corrections
 
 | Date | Correction | Reason |
 |---|---|---|
 | 2026-10-27 | 0.3.1 default knowledge-store proposal renamed `agent-knowledge` → `knowledge` | The default did not match the actual store (`qualitycoding/knowledge`); a planner adopted it silently and the human had to correct it mid-run. Recorded in the run as a lesson: never adopt the protocol default without probing and confirming with the human. |
+| 2026-11-01 | Protocol default split: lessons → `Lessons`, knowledge items → `knowledge` | The Lessons repo already exists as the canonical lesson store; keeping the protocol default combined risked lessons landing in the wrong repository at `S-KNOW`. |
