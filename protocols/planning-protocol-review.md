@@ -1,7 +1,24 @@
 # Planning protocol: change and review record
 
-Current version: **v3.8** (`planning-protocol.md`), recorded 2026-11-01.
-Status: **Round 8 completed — CI platform matrix: runner coverage beyond Windows/Linux/macOS, including Android and iOS.**
+Current version: **v3.9** (`planning-protocol.md`), recorded 2026-11-01.
+Status: **Round 9 completed — mutation testing in CI: pricing, three-tier triggers, an aggregator required check and an honest score gate (new skill `mutation-testing-in-ci`).**
+
+## Requested changes (v3.8 → v3.9)
+
+Requested by the run owner after the guitar-amp-vst implementation run: record the recommended approach for running mutation testing in CI as a skill and reference it from plan creation.
+
+Observed in that run: a mutation job that took 66 to 150 minutes on every push, including pushes that changed only documentation or workflow files; a job that stayed green for several runs without executing a mutant (a runner error swallowed by `|| true`, then a tolerance option that made the tool's threshold flag inert, so a 37.7 % score passed); and a score of 74.1 % against a 75 % floor, one test from failing every run.
+
+| Request / observed failure | Where it lives |
+|---|---|
+| No guidance on when a mutation job should run; it ran on every push regardless of what changed | New skill `mutation-testing-in-ci` (three tiers: incremental PR/push runs on changed files, scheduled full run, on-demand dispatch; aggregator job as the only required status; no `paths:` filter on a workflow whose status is required); 3.8 `S-MUTATE` pre-decides the trigger strategy |
+| Cost was never estimated before the job was wired in | 3.8 `S-MUTATE`: measured baseline test time, mutant count, estimated job time against a stated runtime budget; skill section 1 |
+| A mutation gate that could not fail (swallowed runner error; tolerance option disabling the threshold) | 3.8 `S-MUTATE`: score computed from the report file, post-conditions (report exists, minimum mutant count), shown once to fail (Rule 14); skill section 3 with `scripts/mull_score.py` |
+| Floor set at the achieved score; omitted slow tests silently lowered the score | 3.8 `S-MUTATE`: floor below the first real score; each omitted test a `D-###` |
+| Mutation job treated like a per-platform matrix entry | 3.9 item 7: single pinned Linux runner, own trigger strategy |
+| Nothing checked that the plan carried the strategy | 3.6 cold-read check and 5.1 final consistency check |
+
+Skill files: `skills/mutation-testing-in-ci/SKILL.md`, `scripts/mull_score.py`, `scripts/mull_include_paths.py`, `references/workflow-template.yml` (template parsed as YAML, not yet run as assembled).
 
 ## Requested changes (v3.7 → v3.8)
 
