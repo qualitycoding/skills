@@ -22,6 +22,7 @@ Longer operating procedures that an AI agent follows end to end, rather than ski
 | Protocol | What it does |
 |---|---|
 | [planning-protocol](protocols/planning-protocol.md) | Hardened planning: research, test-first specification and freeze, a zero-question plan, recursive pre-mortem, and a push to a generation branch for a separate implementing agent. Profiles select the parts that apply (`software`, `math`, `computational`, `publication`). It learns across tasks: corrections become classified lessons that are ultimately pushed to the `Lessons` repo, findings become knowledge items pushed to the knowledge repo, and both are loaded at the start of later research. Change history and review record: [planning-protocol-review](protocols/planning-protocol-review.md). |
+| [planning-v3.9-addendum-control](protocols/planning-v3.9-addendum-control.md) | Cross-repository controller for upgrading all 33 qualitycoding code repositories to planning protocol v3.9. Includes exact source branches/commits, execution and recovery rules, a resumable JSON status ledger, and a mechanical verifier. |
 
 ## Layout
 
