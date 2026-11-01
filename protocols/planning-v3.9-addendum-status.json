@@ -40,10 +40,10 @@
       "plan_roots": [
         "plan"
       ],
-      "status": "pending",
-      "implementation_commit": null,
-      "evidence": null,
-      "note": null
+      "status": "pass",
+      "implementation_commit": "69414e5844f6f81b3052b9992c0abb9e9b1503bd",
+      "evidence": "ADDENDUM-V3.9-STATUS.md on impl-v39-addendum-20261102; v39_addendum_verify.py final exit 0 for plan root(s) plan",
+      "note": "source tip is rollout addendum commit (child of audited source; D-901); API-only git transport; review/build substitutions recorded in DEVIATIONS.md"
     },
     {
       "sequence": 4,
@@ -82,10 +82,10 @@
       "plan_roots": [
         "plan"
       ],
-      "status": "pass",
-      "implementation_commit": "b7cf14d5f8100d54b00f3caeaba09168c176f5d0",
-      "evidence": "ADDENDUM-V3.9-STATUS.md on impl-v39-addendum-20261102; v39_addendum_verify.py final exit 0 for plan root(s) plan",
-      "note": "source tip is rollout addendum commit (child of audited source; D-901); API-only git transport; review/build substitutions recorded in DEVIATIONS.md"
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
     },
     {
       "sequence": 7,
