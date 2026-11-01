@@ -1,7 +1,9 @@
 # Template: mutation testing in CI as three tiers. Placeholders in <angle brackets>.
-# Status: parsed as YAML only. It has not been run as written; the pieces were each run in the
-# guitar-amp-vst project (2026-11) but not assembled in this form. Run it once on a throwaway branch
-# and read the produced numbers before relying on it.
+# Status: the workflow derived from this template in guitar-amp-vst ran on 2026-11-01 for two paths:
+# not-applicable (a documentation-only push finished in about a minute, gate green) and incremental (a
+# one-file change mutated only that file, 9 mutants, about 11 minutes against about 150 for the full run,
+# per-file gate green). The full-run path from that workflow and the scheduled path were still unobserved
+# at that date. Treat the rest as unverified until run once on a throwaway branch.
 #
 # Tier 1: pull requests and pushes that touch mutable code -> incremental mutation run (changed files).
 # Tier 2: schedule -> full run on the default branch.

@@ -34,7 +34,7 @@ Rules that make the tiers trustworthy:
 - **Gate an incremental run per file against a recorded baseline**, not against the project floor. Some files legitimately score under the floor (their survivors are justified), so a floor applied to a single changed file would fail every change to it. Record the per-file scores from a full run (`mull_score.py ... --write-baseline`), commit the file, and gate with `--baseline` (each changed file may fall at most `--tolerance` points below its recorded score; a file missing from the baseline must reach the floor). The full run keeps the project floor. Refresh the baseline from a full run when scores legitimately move; raising a baseline is free, lowering one is a reviewed decision.
 - Incremental scope is generated, not hand-edited: `scripts/mull_include_paths.py` turns `git diff --name-only BASE...HEAD` into a tool config that mutates only those files, and exits 3 when none are mutable.
 
-`references/workflow-template.yml` is the three-tier workflow with placeholders. It has been parsed as YAML but not run as assembled; run it once on a throwaway branch and read the numbers.
+`references/workflow-template.yml` is the three-tier workflow with placeholders. Its not-applicable and incremental paths ran in guitar-amp-vst on 2026-11-01 (a documentation-only push finished in about 1 minute; a one-file change mutated only that file's 9 mutants in about 11 minutes, against about 150 minutes for the full run); the scheduled path was unobserved at that date. Run the whole template once on a throwaway branch and read the numbers before relying on it.
 
 ## 3. Keep the gate honest
 
