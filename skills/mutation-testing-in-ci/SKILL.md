@@ -30,6 +30,8 @@ Rules that make the tiers trustworthy:
 - **One aggregator job is the only required status.** It runs with `if: always()`, depends on the mutation job, prints the mode, and fails unless the mutation job succeeded. `not-applicable` (no mutable file changed) is a success that says so in the log; a cancelled, skipped-by-error or failed job is never a success.
 - **Scheduled and manual runs must have an owner.** A scheduled failure opens an issue (or notifies a named channel); a scheduled job nobody reads is the same hole as swallowed errors.
 - Enforcing "required" is a repository setting (branch protection or rulesets). Check it from the repository's settings; a workflow file cannot make a check required.
+- **Widen to a full run** when the change touches the tests that kill mutants, the mutation config, or the scripts of this job: any of those can change every file's score.
+- **Gate an incremental run per file against a recorded baseline**, not against the project floor. Some files legitimately score under the floor (their survivors are justified), so a floor applied to a single changed file would fail every change to it. Record the per-file scores from a full run (`mull_score.py ... --write-baseline`), commit the file, and gate with `--baseline` (each changed file may fall at most `--tolerance` points below its recorded score; a file missing from the baseline must reach the floor). The full run keeps the project floor. Refresh the baseline from a full run when scores legitimately move; raising a baseline is free, lowering one is a reviewed decision.
 - Incremental scope is generated, not hand-edited: `scripts/mull_include_paths.py` turns `git diff --name-only BASE...HEAD` into a tool config that mutates only those files, and exits 3 when none are mutable.
 
 `references/workflow-template.yml` is the three-tier workflow with placeholders. It has been parsed as YAML but not run as assembled; run it once on a throwaway branch and read the numbers.
@@ -38,7 +40,7 @@ Rules that make the tiers trustworthy:
 
 A check that cannot fail is not a check. For mutation jobs specifically:
 
-- **Compute the score from the report file**, not from the tool's exit status. In mull-runner-19 (2026-11), `--mutation-score-threshold 75` did not fail a 37.7 % run that also passed `--allow-surviving`. `scripts/mull_score.py` reads the SQLite report, prints a per-file table (worst file first), and exits non-zero below `--floor`.
+- **Compute the score from the report file**, not from the tool's exit status. In mull-runner-19 (2026-11), `--mutation-score-threshold 75` did not fail a 37.7 % run that also passed `--allow-surviving`. `scripts/mull_score.py` reads the SQLite report, prints a per-file table (worst file first), and exits non-zero below `--floor` (project score) or, with `--baseline`, when a file falls below its recorded score.
 - **Post-conditions**: the report exists, is non-empty, and holds at least a minimum number of mutants (`--min-mutants`). A tool error that produced no report must fail, not skip.
 - **No swallowed failures** on the runner command: no `|| true`, no `continue-on-error`. With a pipe into `tee`, set `pipefail` (the default shell of GitHub Actions `run` steps has none, observed 2026-11).
 - **Verify the status code for "survived"** against a report with a known survivor: the count printed by the script must equal the tool's own "Surviving mutants" line.
