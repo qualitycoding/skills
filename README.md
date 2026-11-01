@@ -14,6 +14,7 @@ needs.
 | [timeless-skill-writing](skills/timeless-skill-writing) | Rewrites time-relative wording (newer, recent, current, higher) in skills and runbooks into fixed baselines, explicit version bounds and runtime checks. |
 | [mutation-testing-in-ci](skills/mutation-testing-in-ci) | How to run mutation testing in CI: price the job first, three tiers (incremental pull-request runs on changed files, scheduled full run, on-demand dispatch) behind one always-running required check, a score gate computed from the report with post-conditions, runtime control, and working the survivors. Includes a score gate script, an incremental-scope script and a workflow template. |
 | [publish-skills-to-repo](skills/publish-skills-to-repo) | Standing rule: every skill, instruction or protocol created or modified, including this one, is committed and pushed to this repo. |
+| [planning-protocol-addendum-rollout](skills/planning-protocol-addendum-rollout) | Repeatable cross-repository planning upgrades: inventory all branches, audit each repository's protocol baseline, create per-repository addendum plans and a central implementation controller, publish safely, and verify remote artifacts. Includes an artifact contract and structural checker. |
 
 ## Protocols
 
