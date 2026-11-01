@@ -1,7 +1,19 @@
 # Planning protocol: change and review record
 
-Current version: **v3.7** (`planning-protocol.md`), recorded 2026-11-01.
-Status: **Round 7 completed — lesson store split from knowledge store; lessons ultimately push to the `Lessons` repo.**
+Current version: **v3.8** (`planning-protocol.md`), recorded 2026-11-01.
+Status: **Round 8 completed — CI platform matrix: runner coverage beyond Windows/Linux/macOS, including Android and iOS.**
+
+## Requested changes (v3.7 → v3.8)
+
+Requested by the run owner: extend the protocol so plans consider CI platforms beyond a Windows/Linux/macOS matrix — the extras identified for GitHub Actions (ARM64 runners, libc-variant containers, oldest-toolchain jobs, QEMU-VM guests such as the BSDs and Solaris/illumos, emulated CPU architectures) — and investigate adding Android and iOS.
+
+| Request / observed mismatch | Where it lives |
+|---|---|
+| Plans defaulted to a `windows/linux/macos` matrix; ARM64 runners, musl/libc-variant container jobs, and oldest-supported-toolchain jobs were never considered | New 3.9 CI Platform Matrix `[software]`, items 1–3 (versioned runner labels instead of `-latest`; labels and action pins existence-checked per 1.3.6, examples date-stamped "verified 2026-11") |
+| BSDs, Solaris/illumos, and exotic CPU architectures had no planned route into CI | 3.9 item 4 (pinned `vmactions/*-vm` QEMU guests on Ubuntu runners; build-only QEMU user-mode for riscv64/s390x/ppc64le; anything else needs a self-hosted runner recorded at intake) |
+| No guidance for mobile projects: Android | 3.9 item 5 (JVM unit tests vs instrumented tests; pinned `reactivecircus/android-emulator-runner` on a KVM-enabled Linux runner; matrix over the intake's supported API levels) |
+| No guidance for mobile projects: iOS | 3.9 item 6 (macOS runners only; pinned Xcode; explicit `simctl boot` + `bootstatus -b`; `CODE_SIGNING_ALLOWED=NO` for simulator tests; signing/TestFlight in a `G-002`-gated release workflow; macOS-minute cost split recorded as a `D-###`) |
+| Nothing verified that intake's supported platforms were actually exercised in CI | Coverage mapping (3.9 item 1) wired into the 3.6 cold-read mechanical check, the Phase 4 `[software]` lens list, and the 5.1 final consistency check |
 
 ## Requested changes (v3.6 → v3.7)
 
