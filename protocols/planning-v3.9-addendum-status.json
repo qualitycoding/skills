@@ -1,0 +1,470 @@
+{
+  "protocol_version": "v3.9",
+  "protocol_commit": "ef99285404419153dd5f9aaae14f14bb53604a62",
+  "controller_branch": "impl-v39-addendum-control-20261102",
+  "repositories": [
+    {
+      "sequence": 1,
+      "repository": "guitar-amp-vst",
+      "source_branch": "gen-20261027T120000Z-guitar-amp-vst",
+      "source_commit": "55a295296bead2b32652d23e987852a9ab869988",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 2,
+      "repository": "audio-to-midi",
+      "source_branch": "addendum-20261101T033000Z-protocol-v3.6",
+      "source_commit": "549d0687f9466926a9cb3af2f6f327bdae03564e",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 3,
+      "repository": "kimi-code-github-app",
+      "source_branch": "gen-20261028T232935Z-kimi-github-app-connector",
+      "source_commit": "61b6379cb6b3f9449e36da30ba64a61e5b34850a",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 4,
+      "repository": "microtonal-guitar",
+      "source_branch": "main",
+      "source_commit": "5a8b6e4e7ff3ac3cde052c66f4d013b146872186",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 5,
+      "repository": "sing-vst",
+      "source_branch": "gen-20261004T095012Z-singing-voice-vst-pitch-lyrics",
+      "source_commit": "657cb1764f767cbedac0079bb8ce95786440eea8",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 6,
+      "repository": "sonic-destruction-vst",
+      "source_branch": "gen-20261028T222647Z-geiger-vst3",
+      "source_commit": "8716e093903364fbe8f7cac67e6653f9cee91e53",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 7,
+      "repository": "trumpet-vst",
+      "source_branch": "gen-20261007T145241Z-trumpet-vst-plan",
+      "source_commit": "4f67cc4ea3df1a7e23650d7206d1400a0fb1db51",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 8,
+      "repository": "ariel-ignition",
+      "source_branch": "gen-20260930T084855Z-ariel-electronic-ignition",
+      "source_commit": "452ecea39985b9657c8edbf630fb475da3cc97e2",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 9,
+      "repository": "audio-to-rocksmith",
+      "source_branch": "review/plan-v2-20260923T200925Z",
+      "source_commit": "065504cf5d8a37a60119c92cb45a5531b0dfb387",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 10,
+      "repository": "chinese-strings",
+      "source_branch": "gen-20261003T134254Z-chinese-strings-vst",
+      "source_commit": "35cc365580a77c6e27797bc278c8eeee6e0d58e6",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 11,
+      "repository": "clarinet-vst",
+      "source_branch": "gen-20261002T075147Z-clarinet-vst-plan",
+      "source_commit": "74fade60cbbb0eec9b34ca4b4d15133b30d823f0",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 12,
+      "repository": "oildrumkit-vcvrack",
+      "source_branch": "plan/v3.3-defect-remediation",
+      "source_commit": "96a00b653686cce5e0234e8dac07aca940536118",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 13,
+      "repository": "Rawksmyth",
+      "source_branch": "gen-20260923T152727Z-rocksmith-clone",
+      "source_commit": "9d43955e82cccb0cece7162b193dfddd0ab32284",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 14,
+      "repository": "refractor",
+      "source_branch": "gen-20260928T151837Z-refractor-rainbow-machine-vst",
+      "source_commit": "17f474850deb6bea728465098d34a14afb310295",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 15,
+      "repository": "Renault-diagnosticiser",
+      "source_branch": "gen-20260924T110646Z-renault-scenic-obd-reader",
+      "source_commit": "23f6a510d8686d61d45bf987335e03e30801f4e2",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 16,
+      "repository": "saxophone-vst",
+      "source_branch": "gen-20261001T211329Z-saxophone-vst-plan",
+      "source_commit": "cc53ac03b66dde0ef2a3078eb5fdda7dbbb1166d",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 17,
+      "repository": "tracer-diagnosticiser",
+      "source_branch": "gen-20260926T164526Z-tracer9gt-obd-reader",
+      "source_commit": "069cfff57e2e686e0b09739cab18b36d153aacba",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 18,
+      "repository": "oildrumkit",
+      "source_branch": "main",
+      "source_commit": "35fbfead61a11a8c7f5609a95831a29f2cb2bf78",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 19,
+      "repository": "stem-splitter",
+      "source_branch": "main",
+      "source_commit": "b9173b7d80c0323b28bf69cfe09e8b6eb478bef9",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 20,
+      "repository": "Stream-of-consonance",
+      "source_branch": "main",
+      "source_commit": "9c8e5e10f467d695c31914034f4b6c4e265a6179",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 21,
+      "repository": "Stream-of-consonance-vst",
+      "source_branch": "main",
+      "source_commit": "d4075852db02391ed0be2a25fd30132728279b99",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan",
+        "vst/plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 22,
+      "repository": "atmospheric-javascript",
+      "source_branch": "main",
+      "source_commit": "0d4e8d73863c93b24f0ca4b37e7cc113db3e00d7",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 23,
+      "repository": "AutoHedge",
+      "source_branch": "main",
+      "source_commit": "72a325b5ad7e41ccbe019b69f5ef9c5d13e50f26",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 24,
+      "repository": "docplan-executor",
+      "source_branch": "main",
+      "source_commit": "6e2ea701d2b78f31c80aa59c86fc76f5c1f39c77",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 25,
+      "repository": "functional-utils",
+      "source_branch": "master",
+      "source_commit": "e85c1348917499d4c75e83e0f3accf7bfb55d949",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 26,
+      "repository": "invasion",
+      "source_branch": "main",
+      "source_commit": "4bea40b041643b5cfc9935abfb2d97183f6f8146",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 27,
+      "repository": "midi-generator",
+      "source_branch": "main",
+      "source_commit": "1940bc4b4cfe3cb5d77afffb072a418b3f64c86d",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 28,
+      "repository": "munch",
+      "source_branch": "main",
+      "source_commit": "e55f1b7814b7e6d759af9f8fcdaede28972e16b5",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 29,
+      "repository": "nv-i18n",
+      "source_branch": "master",
+      "source_commit": "415547a5502789a0bcca21885b2be6017736432e",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 30,
+      "repository": "Playlists",
+      "source_branch": "main",
+      "source_commit": "7f12ea432d83af00d182ad494bd5fc41d7ca8d28",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 31,
+      "repository": "reflection-utils",
+      "source_branch": "master",
+      "source_commit": "436e31aa75305e43985f844f77b08a6c48c5bd2e",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 32,
+      "repository": "side-splitter",
+      "source_branch": "main",
+      "source_commit": "c1e8525b2b84478abf288a5cce7ee4d5123949a6",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    },
+    {
+      "sequence": 33,
+      "repository": "sitar",
+      "source_branch": "main",
+      "source_commit": "1d91a89ae26722718fc8362023fc3684493d5c17",
+      "implementation_branch": "impl-v39-addendum-20261102",
+      "plan_roots": [
+        "plan"
+      ],
+      "status": "pending",
+      "implementation_commit": null,
+      "evidence": null,
+      "note": null
+    }
+  ]
+}
