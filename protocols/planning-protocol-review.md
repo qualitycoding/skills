@@ -18,7 +18,7 @@ Observed in that run: a mutation job that took 66 to 150 minutes on every push, 
 | Mutation job treated like a per-platform matrix entry | 3.9 item 7: single pinned Linux runner, own trigger strategy |
 | Nothing checked that the plan carried the strategy | 3.6 cold-read check and 5.1 final consistency check |
 
-Skill files: `skills/mutation-testing-in-ci/SKILL.md`, `scripts/mull_score.py`, `scripts/mull_include_paths.py`, `references/workflow-template.yml` (template parsed as YAML, not yet run as assembled).
+Skill files: `skills/mutation-testing-in-ci/SKILL.md`, `scripts/mull_score.py`, `scripts/mull_include_paths.py`, `references/example-mutation-workflow.yml` (the working workflow from guitar-amp-vst; not-applicable and incremental paths observed, full-run and schedule unobserved).
 
 ## Requested changes (v3.7 → v3.8)
 
