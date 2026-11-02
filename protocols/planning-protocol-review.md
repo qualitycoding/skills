@@ -1,7 +1,24 @@
 # Planning protocol: change and review record
 
-Current version: **v3.10** (`planning-protocol.md`), recorded 2026-11-02.
-Status: **Round 10 completed — audio listening validation: blind A/B test and demo listening as an explicit gated phase (new skill `audio-blind-listening-validation`).** Previous: Round 9 completed — mutation testing in CI: pricing, three-tier triggers, an aggregator required check and an honest score gate (new skill `mutation-testing-in-ci`).**
+Current version: **v3.11** (`planning-protocol.md`), recorded 2026-11-02.
+Status: **Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).** Previous: Round 10 completed — audio listening validation: blind A/B test and demo listening as an explicit gated phase (new skill `audio-blind-listening-validation`).
+
+## Requested changes (v3.10 → v3.11)
+
+Requested by the run owner after building `qualitycoding/swedish-exercises` (Swedish current-affairs exercises: 6 themes × reading, listening, writing, speaking; scored out of 10, retryable, scores saved between visits, GitHub Pages): encapsulate everything done in that run as a new pathway in the planning protocol, backed by a skill.
+
+Observed in that run: repository creation and the Pages settings API were refused by the session proxy, so both had to be requested from the owner mid-run; the published `*.github.io` site could not be loaded from the sandbox, so deployment was verified through the Actions runs list; a first theme draft omitted the slang labels the request required; a listening script attributed invented words and plans to a real athlete until a sentence-by-sentence source check removed them; a keyword stem of one letter would have accepted any spoken answer; DOM `append` calls given arrays silently dropped content; a lockfile generated next to a symlinked `node_modules` recorded a local link and failed CI.
+
+| Request / observed failure | Where it lives |
+|---|---|
+| No pathway for scored learning material | New mode flag `courseware` (Rule 0), intake decisions in 0.3.1, new section 3.11 with step `S-LEARN` and gate `G-LEARN` (3.3) |
+| Repository creation and Pages settings discovered as blocked mid-run | 0.1 permission probe names repository creation and settings such as Pages; 3.11 item 1 hosting preflight and verification channel |
+| Out-of-date, uncited or invented content; slang not labelled | 3.11 items 2–3; skill sections 3–4; Phase 4 lens |
+| Answer keys that mark correct answers wrong; one-letter keyword stems; session length | 3.11 item 4 (frozen item and scoring rules, data validator); skill sections 5 and 8 (`scripts/validate.mjs`) |
+| Browser and speech paths untested; checks that cannot fail | 3.11 item 5: fake speech API, correct → full marks and wrong → low ceiling, fallback path (Rule 14) |
+| Nothing checked that a learning plan carried the pathway | 3.6 cold-read check and 5.1 final consistency check |
+
+Skill files: `skills/learning-exercise-site/SKILL.md`, `scripts/scoring.js`, `scripts/validate.mjs`, `references/theme-schema.md`, `evals/evals.md`. The validator and scoring functions were run in the reference repository (24 exercises valid; 38 unit and browser tests passing locally and in CI); the learner-trial gate is defined but was not yet run with a learner.
 
 ## Requested changes (v3.9 → v3.10)
 
