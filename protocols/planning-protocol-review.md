@@ -1,7 +1,21 @@
 # Planning protocol: change and review record
 
-Current version: **v3.9** (`planning-protocol.md`), recorded 2026-11-01.
-Status: **Round 9 completed — mutation testing in CI: pricing, three-tier triggers, an aggregator required check and an honest score gate (new skill `mutation-testing-in-ci`).**
+Current version: **v3.10** (`planning-protocol.md`), recorded 2026-11-02.
+Status: **Round 10 completed — audio listening validation: blind A/B test and demo listening as an explicit gated phase (new skill `audio-blind-listening-validation`).** Previous: Round 9 completed — mutation testing in CI: pricing, three-tier triggers, an aggregator required check and an honest score gate (new skill `mutation-testing-in-ci`).**
+
+## Requested changes (v3.9 → v3.10)
+
+Requested by the run owner after the trumpet-vst implementation run: the phase in which blind listening comparisons and demo listening were performed must be an explicit part of any plan that generates audio or audio tooling, reproducible through a skill and linked from the planning protocol.
+
+Observed in that run: objective realism metrics passed while a listener could still pick out the real recording in most blind pairs, by the start of each clip; the metrics-only view missed a synthetic-sounding pedal tone that listening to the demos found; a leaked answer key (the listener was told which pairs were right) forced a new seed; delivering the evidence for phone listening needed a CI-built orphan branch and a zip URL.
+
+| Request / observed failure | Where it lives |
+|---|---|
+| No listening phase in plans for audio work | New mode flag `audio` (Rule 0), new 3.10 step `S-LISTEN` before the closing steps, intake line in 0.3.1, listening gate in 3.3 |
+| Procedure for the blind test, demos, evidence delivery, gate questions, scoring and iteration was only in one project's records | New skill `audio-blind-listening-validation` (`SKILL.md`, `scripts/make_blind_pairs.py`, `scripts/score_blind.py`, `evals/evals.md`) |
+| Nothing checked that an audio plan carried the phase | 3.6 cold-read check and 5.1 final consistency check |
+
+Scripts were run against synthetic tones (same seed gives an identical key; a key-matching answer sheet scores all pairs correct); the end-to-end flow with a real instrument was observed in the trumpet-vst run, not re-run from the skill.
 
 ## Requested changes (v3.8 → v3.9)
 
