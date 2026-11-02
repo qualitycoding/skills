@@ -74,12 +74,21 @@ None. All rows are evidence-backed passes.
    available; cold read and adversarial review are recorded as same-author
    substitutions with High risk, not independent passes.
 
-## Open G-003 learning-store requests
+## G-003 learning-store publication — COMPLETED 2026-11-02
 
-For all 33 repositories: lessons and knowledge items are bundled in each
-repository (`ADDENDUM-RETROSPECTIVE.md`) and publication to
-`qualitycoding/Lessons` and `qualitycoding/knowledge` is **pending human
-sign-off** (do-not-push until then; bundle fallback documented per G-003).
+Human sign-off received; stores pushed and remote-verified:
+
+- `qualitycoding/Lessons` @ `bbdd7f95ccde46b2152e75a76ce7a6259b4a85f3`: lessons
+  `L-20261102T085622Z-git-transport-blocked-use-git-database-api` (High) and
+  `L-20261102T085700Z-rollout-addendum-commits-cause-predictable-tip-drift` (Medium);
+  index regenerated (279 entries).
+- `qualitycoding/knowledge` @ `55c4493aca828eaae510119b17b6ebac79610ad4`:
+  items `K-20261102T085800Z-github-git-database-api-writes-when-transport-blocked`
+  and `K-20261102T085900Z-mutation-ci-pricing-estimate-vs-measured`; new subject
+  `github-git-database-api` added to the taxonomy; index regenerated (404 entries).
+
+Both stores pass their `scripts/check_knowledge_schema.py` validators. The
+per-repository G-003 bundles remain in each `ADDENDUM-RETROSPECTIVE.md`.
 
 ## Residual risks
 
