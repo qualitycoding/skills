@@ -109,3 +109,14 @@ per-repository G-003 bundles remain in each `ADDENDUM-RETROSPECTIVE.md`.
 
 **Programme stopped here, per the controller:** no product implementation has
 begun.
+
+## Post-programme action — planning amendments merged to default branches (2026-11-02, human instruction)
+
+At the owner's instruction, the planning-only `impl-v39-addendum-20261102`
+amendment was merged into each repository's default branch where the diff was
+verified to contain only planning artifacts (26 repositories, merge commits
+remote-verified). Not merged: sing-vst, trumpet-vst, chinese-strings,
+clarinet-vst, saxophone-vst (diff vs main contains unaudited product
+implementation — a G-002 release decision); audio-to-midi (impl branch and main
+share no common ancestor — merge is impossible without history rewrite). No
+product branches (`impl/*`, `fix/*`, `dependabot/*`, etc.) were merged.
