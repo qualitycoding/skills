@@ -335,10 +335,10 @@
       "plan_roots": [
         "plan"
       ],
-      "status": "pending",
-      "implementation_commit": null,
-      "evidence": null,
-      "note": null
+      "status": "pass",
+      "implementation_commit": "2dfd1e049b3d1f7744f10bbd268700c35da9b9f6",
+      "evidence": "ADDENDUM-V3.9-STATUS.md on impl-v39-addendum-20261102; v39_addendum_verify.py final exit 0 for plan root(s) plan",
+      "note": "source tip is rollout addendum commit (child of audited source; D-901); API-only git transport; review/build substitutions recorded in DEVIATIONS.md"
     },
     {
       "sequence": 25,
