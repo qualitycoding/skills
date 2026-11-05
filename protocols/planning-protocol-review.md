@@ -1,7 +1,27 @@
+---
 # Planning protocol: change and review record
 
-Current version: **v3.11** (`planning-protocol.md`), recorded 2026-11-02.
-Status: **Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).** Previous: Round 10 completed — audio listening validation: blind A/B test and demo listening as an explicit gated phase (new skill `audio-blind-listening-validation`).
+Current version: **v3.12** (`planning-protocol.md`), recorded 2026-11-05.
+Status: **Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+
+## Requested changes (v3.11 → v3.12)
+
+Requested by the run owner: at the end of the research round, all external sources checked should be listed with their content, licensing and so on as a knowledge item and, ultimately, posted to the knowledge store.
+
+Interpretation recorded: "the research round" is read as the end of the research loop (the last round), with each round logging its sources as it goes so nothing is lost if a round is interrupted. "Listed as a knowledge item" is read as one item per run, a table with one row per source, rather than one item per source; per-source facts that the run relies on remain ordinary knowledge items under Rule 12. A source counts as checked whether or not it was used.
+
+| Request | Where it lives |
+|---|---|
+| List every external source checked | `Sources checked` section in each round log (1.3); R7 step 1 collects from round logs, `research/SOURCES.md`, `claims.json`, `NOVELTY.md`, 1.3.6 locators and spike downloads |
+| With their content | R7 step 2: content in the agent's own words, outcome, and the claims supported or contradicted |
+| With licensing, etc. | R7 step 2: licence as SPDX identifier or named terms, where it was read, permitted use, compatibility with the target repository's licence for reused material, access notes. `none stated` is recorded as all rights reserved, never as permissive |
+| As a knowledge item | Rule 12 bullet; Appendix B register template; new `kind:source-register` tag (Appendix C); passes the existing schema check unchanged |
+| Ultimately posted to the knowledge store | `knowledge/` already travels to the store at `G-003`; 3.7.2 now names the register in the gate record and in its done-when |
+| Nothing checked that it happened | R7 review (live spot-check of licences) and completeness check; termination criteria; 3.7.1 retrospective question 5; 5.1 final check; Phase 5 report line |
+
+Added beyond the request: R0 step 5 lets a later run use the register as a map of sources already evaluated while counting it as zero sources towards corroboration, so a register cannot launder a claim into `corroborated`; sources checked after R7 are appended by the agent that checked them; unknown licence on reused material is a High risk.
+
+Checks run: the Appendix B register example was extracted from the protocol and passed the Appendix C schema script (exit status 0). The R7 procedure itself has not yet been run in a planning run.
 
 ## Requested changes (v3.10 → v3.11)
 
