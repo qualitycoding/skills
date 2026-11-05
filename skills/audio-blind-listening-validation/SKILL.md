@@ -19,8 +19,12 @@ listener available), as a `D-###` decision in a plan.
 ## Procedure
 
 ### 1. Fix the reference set and the metrics first
-- Choose reference recordings with a licence that permits redistribution inside the evidence bundle; record the
-  source URL, licence and checksum.
+- Choose reference recordings under planning-protocol Rule 15. Prefer redistributable ones (own recordings, CC0, CC BY
+  and similar) and say what was searched. For a hobby project, restrictive recordings (non-commercial, no-derivatives,
+  personal-use site terms) may be used as **private references** when the redistributable pool cannot meet the need:
+  record the source URL, author, licence or terms URL, checksum and a `redistributable` flag for each, keep the files out
+  of the repository, and download them on demand (the human downloads them if the sandbox cannot reach the site). Refuse
+  unknown licences and recordings with no named author or original source page.
 - Freeze quantitative thresholds (for example harmonic envelope error, spectral centroid, onset time) before any
   listening. Listening gates sit on top of the metrics; they never replace them and never relax them.
 
@@ -45,7 +49,10 @@ listener available), as a `D-###` decision in a plan.
 ### 4. Deliver the evidence for listening on a phone
 - Build the bundle in CI from a marker commit (message contains `[gate-evidence <gate-id>]`) and push it to an
   orphan branch `evidence/<gate-id>`, with `SHA256SUMS` and attribution for the reference material. The job has its
-  own concurrency group so unrelated runs cannot cancel it.
+  own concurrency group so unrelated runs cannot cancel it. If any reference is a private reference, the branch holds
+  no reference-derived audio (the pairs included): it carries the demos, a link record for every reference and the
+  hashes of the private pairs, and the pairs reach the listener privately, for example as files in the conversation.
+  The tooling checks a per-reference `redistributable` flag and treats a missing flag as false.
 - Give the listener a zip URL, `https://github.com/<owner>/<repo>/archive/refs/heads/evidence/<gate-id>.zip`, and
   per-file raw URLs. For a private repository, say so and offer another route.
 - Ask the listener to play the pairs in order on their own headphones, A then B, one listen each, and write down

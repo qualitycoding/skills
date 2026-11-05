@@ -1,8 +1,27 @@
 ---
 # Planning protocol: change and review record
 
-Current version: **v3.12** (`planning-protocol.md`), recorded 2026-11-05.
-Status: **Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+Current version: **v3.13** (`planning-protocol.md`), recorded 2026-11-05.
+Status: **Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+
+## Requested changes (v3.12 → v3.13)
+
+Requested by the run owner: make it clear from the outset that the protocol is used to create a hobby project, and that reference material need not be republished in the repository, although a reference to its origin must then be provided; material can be downloaded into the sandbox on demand; redistributable references are to be preferred over more restrictive ones; for freely redistributable material the existing protocol is acceptable.
+
+Interpretation recorded: "from the outset" is read as a statement at the top of the protocol plus an intake field (`project.nature`, default `hobby`). "Reference material" is read as material the work is compared against or learns from, not material copied into the deliverable (that still needs a licence compatible with the target repository). "Strive for redistributable" is read as an ordered search with a recorded justification (`D-###`) before any restrictive source is used. The private route is for personal download and use only; it never circumvents a paywall, login terms or an automated-access ban, and it still requires a named author and original source page.
+
+| Request | Where it lives |
+|---|---|
+| Hobby project stated from the outset | Opening statement; intake 0.3.1 `Project nature`; Rule 15 |
+| No need to republish references; give their origin | Rule 15 *Private reference* (a) to (e): link record with URL, author, licence or terms URL, date, sha256; never committed or published |
+| Download into the sandbox on demand | Rule 15 (d): download outside the working tree, check the sha256; the human downloads where the sandbox cannot reach the site |
+| Prefer redistributable | Rule 15 *Redistributable first*: ordered search, searches logged, `D-###` for any shortfall; R7 route per source; Phase 5 report counts |
+| Redistributable material stays as before | Rule 15; 3.10 item 1 |
+| Safety | Fail-closed `redistributable` flag with a test that can fail (Rule 14); 3.10 evidence branch omits reference-derived audio when any reference is private; 5.1 final check |
+
+Added beyond the request: a `never used` list (unknown licence, no named author or original source, terms that bar personal use), because a licence label on a re-hosting page that names no creator grants nothing; a `commercial` setting that turns the private route off; and a hash-mismatch stop so that a changed source is never silently accepted.
+
+Checks run: the new text was applied first to the oildrumkit listening-phase plan (decision D-020, tests T-L08b, T-L08d and T-L16, 21 frozen tests green on a reference implementation and 19 red on stubs). Rule 15 itself has not yet been followed in a complete planning run.
 
 ## Requested changes (v3.11 → v3.12)
 

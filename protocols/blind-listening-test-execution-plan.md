@@ -101,7 +101,7 @@ listening-work/<gate-id>/round-001/
 
 Every pair must represent the same instrument, note/phrase, preset, event stream, and duration. Match stems exactly. The builder samples matching stems and fails if fewer than 12 are available; do not silence that failure or substitute unmatched material.
 
-Record source URL, licence, original checksum, trim/resample operation, and candidate render provenance before pair construction. Internal baseline renders used for equivalence tests must identify their source commit and renderer settings.
+Record source URL, author, licence or terms URL, original checksum, whether the reference is redistributable or a private reference (planning-protocol Rule 15), trim/resample operation, and candidate render provenance before pair construction. Private references are linked, not committed, and are downloaded on demand. Internal baseline renders used for equivalence tests must identify their source commit and renderer settings.
 
 ### 4.2 Build and inspect pairs
 
@@ -137,7 +137,7 @@ Define every demo as a text event/phrase file or reproducible host session plus 
 
 1. Use a marker commit containing `[gate-evidence <gate-id>]`.
 2. Build the listener ZIP/raw files in CI with a dedicated concurrency group.
-3. Publish orphan branch `evidence/<gate-id>` with `SHA256SUMS` and attribution.
+3. Publish orphan branch `evidence/<gate-id>` with `SHA256SUMS` and attribution. If any reference is a private reference, the branch omits the pairs and holds link records and hashes only; the pairs are delivered to the listener privately (Rule 15).
 4. Put the ZIP URL, per-file raw URLs, evidence commit, and candidate commit in `GATE-<id>.md`.
 5. Verify URLs and hashes from a fresh context. Never list an URL that was not produced.
 
@@ -262,7 +262,7 @@ Do not replace native checkpoints with this schema. Add a pointer to `result.jso
 
 ### Comparison and assets
 
-- **Type:** realism against redistribution-compatible recordings of real struck steel oil drums/barrels or closely matched struck sheet steel. Legacy-versus-current renders are useful demos but are not realism references.
+- **Type:** realism against recordings of real struck steel chosen under planning-protocol Rule 15 (redistributable preferred; private references linked, not republished) — oil drums/barrels or closely matched struck sheet steel. Legacy-versus-current renders are useful demos but are not realism references.
 - **Reference:** at least 12 matched hits across the kit’s representative families, with source URL, licence, and checksums. If real references cannot be secured, block the scored realism test and record a demos-only `D-###`; do not use the legacy synth as “real.”
 - **Candidate:** current modal-engine renders using matched instrument, velocity, hammer, damping, pitch, strike, room, and seed settings. Record raw levels before RMS matching.
 - **Primary set:** 12 onset pairs, initial seed `20261103`, ≤8/12 plus no unresolved realism finding.
@@ -290,7 +290,7 @@ Ask which side is the real recording and whether each demo has convincing metall
 
 ### Comparison and assets
 
-- **Type:** realism against redistribution-compatible sitar performances.
+- **Type:** realism against sitar performances chosen under planning-protocol Rule 15 (redistributable preferred; private references linked, not republished).
 - **Reference:** at least 12 matched notes/phrases covering low/high register, meend, jawari buzz, chikari/jhala, and sustained sympathetic resonance; record source, licence, and checksums.
 - **Candidate:** renderer output using matched pitch, phrase, pluck/mizrab hardness, jawari, tarab/raga, meend, and dynamics settings.
 - **Primary set:** 12 onset pairs, initial seed `20261104`, ≤8/12 plus no unresolved realism finding. A separate sustained/middle set is diagnostic only unless separately frozen and scored.
@@ -318,7 +318,7 @@ Ask which side is the recorded sitar and whether demos show convincing pluck att
 
 ### References and common assets
 
-- **Type:** realism against redistribution-compatible recordings of each named Chinese instrument.
+- **Type:** realism against recordings of each named Chinese instrument chosen under planning-protocol Rule 15 (redistributable preferred; private references linked, not republished).
 - **Reference:** matched performances for the instruments and techniques covered by the active family gate; source URL, licence, and checksums per file. Do not substitute a different instrument and call it equivalent.
 - **Candidate:** `cs_render` output from the active implementation commit using the existing JSON phrases and recorded settings.
 - **Primary set per active gate:** 12 onset pairs, base seed `20261105`, ≤8/12 plus acceptable per-instrument demos. Ensure the pair manifest identifies instrument/technique coverage so a family-wide score cannot hide a badly failing instrument.
