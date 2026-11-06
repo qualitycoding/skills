@@ -1,8 +1,22 @@
 ---
 # Planning protocol: change and review record
 
-Current version: **v3.14** (`planning-protocol.md`), recorded 2026-11-06.
-Status: **Round 14 completed — mutation sharding: an over-budget mutation job is split into a generated per-file or per-module matrix with CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and a completeness-checking aggregate job (new skill `mutation-sharding`).** Previous: Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+Current version: **v3.15** (`planning-protocol.md`), recorded 2026-11-06.
+Status: **Round 15 completed — scheduled content refresh for courseware: content about a changing world is refreshed by a scheduled, append-only, fail-closed task following a checklist kept in the project repository (3.11 item 8, step `S-REFRESH`; skill `learning-exercise-site` section 10).** Previous: Round 14 completed — mutation sharding: an over-budget mutation job is split into a generated per-file or per-module matrix with CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and a completeness-checking aggregate job (new skill `mutation-sharding`).** Previous: Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+
+## Requested changes (v3.14 → v3.15)
+
+Requested by the run owner after asking how often the `qualitycoding/swedish-exercises` pages regenerate (answer: never by themselves — a static site changes only when something is pushed, so the news-based content had been frozen at its launch date): set up an automatic refresh, and add it to the planning protocol so future similar projects refresh automatically.
+
+| Request / observed gap | Where it lives |
+|---|---|
+| Courseware about current events had no plan for staying current | Intake 0.3.1 records the refresh cadence or `refresh: none` with a reason; 3.11 item 8 adds `S-REFRESH` |
+| A refresh must not break learners' saved scores | 3.11 item 8: append-only units with new dated ids; existing ids never change |
+| An unattended run must not publish broken or unverified content | 3.11 item 8: baseline check, validator and browser tests before push, content fixed rather than tests, three-attempt stop, CI + deployment + live-site check reported |
+| The live site cannot be loaded from the agent sandbox | Live-site check workflow on `deployment_status`, read through the Actions API |
+| Nothing checked that a courseware plan carried the refresh | 5.1 final check; Phase 4 lens |
+
+Reference implementation: `REFRESH.md` and `.github/workflows/live-check.yml` in `qualitycoding/swedish-exercises`, and a weekly cloud scheduled task (Saturdays 10:32 Europe/London, push notifications). Its first run had not happened when this round was recorded.
 
 ## Requested changes (v3.13 → v3.14)
 

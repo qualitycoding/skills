@@ -1,6 +1,6 @@
 ---
 name: learning-exercise-site
-description: Use when planning or building interactive learning exercises delivered as a website - language practice (reading, listening, writing, speaking), quizzes or courses - that must be scored, retryable, saved between visits and hosted on GitHub Pages. Defines the S-LEARN pathway of the planning protocol - intake decisions, dated and sourced content with register labels (slang, colloquial, idiom), item and scoring design, browser speech with fallbacks, persistence, a data validator, browser tests with a fake speech API, hosting preflight, and a learner-trial gate.
+description: Use when planning, building or refreshing interactive learning exercises delivered as a website - language practice (reading, listening, writing, speaking), quizzes or courses - that must be scored, retryable, saved between visits and hosted on GitHub Pages. Defines the S-LEARN pathway of the planning protocol - intake decisions, dated and sourced content with register labels (slang, colloquial, idiom), item and scoring design, browser speech with fallbacks, persistence, a data validator, browser tests with a fake speech API, hosting preflight, and a learner-trial gate, and a scheduled append-only content refresh with a live-site check.
 ---
 
 # Interactive learning-exercise sites
@@ -135,6 +135,34 @@ Responses: `proceed`, `iterate: <notes>` (fix the items, re-run the validator an
 at most 3 rounds), `proceed-with-rescope: <text>`, `stop`. Each wrongly scored item becomes a validator or test
 case before it is fixed.
 
+## 10. Scheduled content refresh
+
+Content that describes a changing world (news, prices, rules, sport) goes stale from the day it is published, and
+a static site never regenerates by itself: it changes only when something is pushed. Plan the refresh from the
+start rather than waiting for the learner to notice.
+
+1. **Cadence and unit.** Decide how often (the reference implementation adds one theme a week) and what a run adds
+   (one complete unit: all four exercises). Record both as intake decisions.
+2. **Procedure in the repository.** Write the per-run checklist as `REFRESH.md` in the project repository, so the
+   procedure is versioned with the code it depends on. The scheduled prompt only says: attach the repositories,
+   probe push access, follow `REFRESH.md`, report.
+3. **Append-only.** A run adds a unit with a new, unique, dated id (`<slug>-<yyyymmdd>`) and never edits or deletes
+   existing units: their ids are the keys of learners' saved scores. The new unit goes first in the manifest.
+4. **Topic rotation.** A run reads the newest units and picks a different area, with two independent sources per
+   fact; political topics stay neutral.
+5. **Fail closed.** A run checks the baseline suite before changing anything, publishes only when the validator and
+   the browser tests pass, fixes the content (never the tests or validator rules) when they fail, and stops after
+   three attempts. It never reports the site as updated unless CI, the Pages deployment and a live-site check have
+   succeeded for its commit.
+6. **Live-site check.** Because the agent sandbox cannot load `*.github.io`, the repository carries a workflow
+   triggered by `deployment_status` that fetches every data file from the live site on a GitHub runner and fails
+   with an annotation when one is not served as JSON; its result is read from the Actions API.
+7. **Scheduling.** Create the schedule with the session's scheduled-task tool (cloud, no local computer), with
+   push notifications to the owner, outside 06:00–09:00 US Pacific, at an off-the-hour minute. Tell the owner the
+   first run time and the approval setting the task received.
+8. **Access.** Each run starts with `git push --dry-run` against the repository; if refused, it stops and names the
+   GitHub App setting the owner must change.
+
 ## Files
 
 - `scripts/scoring.js` – scoring and markup functions from the reference implementation.
@@ -142,3 +170,4 @@ case before it is fixed.
   the project root (adjust the import path when copying).
 - `references/theme-schema.md` – the theme JSON format with an example.
 - `evals/evals.md` – prompts with expected behaviour.
+- Reference refresh checklist: `REFRESH.md` and `.github/workflows/live-check.yml` in `qualitycoding/swedish-exercises`.

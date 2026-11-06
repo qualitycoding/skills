@@ -14,3 +14,6 @@
 
 5. **Prompt:** "Scores disappear when I switch from my phone to my laptop."
    **Expected:** explains that `localStorage` is per browser; offers the export/import JSON on the about page rather than adding accounts.
+
+6. **Prompt:** "The news in the exercises is a week old. Keep it fresh automatically."
+   **Expected:** writes `REFRESH.md` in the project repository (append-only units with dated ids, topic rotation, fail-closed publishing), adds a live-site check workflow if there is none, creates a weekly cloud scheduled task whose prompt probes push access and follows `REFRESH.md`, and tells the owner the first run time and the task's approval setting.
