@@ -1,8 +1,23 @@
 ---
 # Planning protocol: change and review record
 
-Current version: **v3.13** (`planning-protocol.md`), recorded 2026-11-05.
-Status: **Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+Current version: **v3.14** (`planning-protocol.md`), recorded 2026-11-06.
+Status: **Round 14 completed — mutation sharding: an over-budget mutation job is split into a generated per-file or per-module matrix with CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and a completeness-checking aggregate job (new skill `mutation-sharding`).** Previous: Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+
+## Requested changes (v3.13 → v3.14)
+
+Requested by the run owner: when mutation testing must be split into shards to complete inside budget, record the procedure in enough detail to follow reliably; consider rewriting the mutation workflow into a per-file matrix with memory and CPU caps; treat Mull installation taking tens of minutes instead of under one minute as an indication of flaky network and retry with three bounded install attempts and a step limit.
+
+| Request | Where it lives |
+|---|---|
+| Split an over-budget mutation suite into shards | New skill `mutation-sharding` (`skills/mutation-sharding/SKILL.md`), sections 1–2; 3.8 `S-MUTATE` requires a generated per-file or per-module matrix when the priced job exceeds budget |
+| Per-file matrix with memory and CPU caps | Skill sections 2–3 and `references/per-file-matrix.yml`; 3.8 `S-MUTATE` records shard grouping and caps; 3.9 item 7 places the shard matrix on pinned Linux runner labels with matching inventory |
+| Flaky network indicated by a tens-of-minutes Mull install | Skill section 4: exactly three attempts, each bounded, with sleep only between attempts and a hard stop after the third failure |
+| Step limit | Skill sections 3–4 and the matrix template: job timeout plus explicit shell `timeout` for install and mutation-run steps |
+| Shard results cannot be silently incomplete | Skill sections 5–6: per-shard report gates, always-uploaded artifacts, and an aggregate job that checks expected report count before scoring |
+| Planning protocol references the new skill | Title/version bump; 3.8 `S-MUTATE`; 3.9 item 7 |
+
+Skill files: `skills/mutation-sharding/SKILL.md`, `references/per-file-matrix.yml`.
 
 ## Requested changes (v3.12 → v3.13)
 
