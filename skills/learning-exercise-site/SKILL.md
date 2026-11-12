@@ -15,7 +15,7 @@ implementation for every rule below.
 ## When it applies
 
 Use it whenever the deliverable is practice material a learner works through and is scored on. In the planning
-protocol it is the `courseware` mode flag and section 3.11 (step `S-LEARN`, gate `G-LEARN`). It normally accompanies
+protocol it is the `courseware` mode flag and section 3.11, in the module `protocols/modules/courseware.md` (step `S-LEARN`, gate `G-LEARN`). It normally accompanies
 the `software` profile. Omitting the learner trial needs a recorded `D-###` reason.
 
 ## 1. Intake decisions (record each as an assumption or decision)

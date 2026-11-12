@@ -13,13 +13,13 @@ Follow the planning protocol in `protocols/planning-protocol.md` of `github.com/
 
 1. **Load the protocol from the repository, not from memory.**
    - If a clone exists (for example `/home/claude/skills`), run `git fetch origin main` and read the file at `origin/main`. If no clone exists, attach and clone `qualitycoding/skills` (shallow clone, one clone only).
-   - Read the whole of `protocols/planning-protocol.md`, not only the headings. Record its version string from the first line in the plan's provenance.
+   - Read the whole of `protocols/planning-protocol.md` (the core), not only the headings. Then, once intake has fixed the profiles and mode flags and 0.1 has fixed the environment class, read in full every module under `protocols/modules/` whose condition the core's Rule 0.7 table says is met. Record each file read and its version (the first line of each) in `plan/PROFILE.md` and in the plan's provenance.
    - Never rely on a remembered copy of the protocol, and never paste the protocol into this skill: a copy drifts from the source.
-2. **Read the skills the protocol names** (for example `learning-exercise-site`, `audio-blind-listening-validation`, `mutation-testing-in-ci`, `mutation-sharding`) when the profile or mode flags chosen at intake call for them. They are in the same repository under `skills/`.
+2. **Read the skills the protocol and its modules name** (for example `learning-exercise-site`, `audio-blind-listening-validation`, `mutation-testing-in-ci`, `mutation-sharding`) when the profile or mode flags chosen at intake call for them. They are in the same repository under `skills/`.
 3. **Run intake as the protocol defines it.** Take the subject, profile and mode flags from the user's request. Where the protocol requires a question to be asked, ask it; do not guess values the protocol says must be confirmed.
 4. **Carry out every phase the protocol requires for the chosen profile**: research, specification and freeze, plan construction, pre-mortem, and the push. Do not skip, merge or reorder phases to save time.
 5. **Stop when the plan is pushed.** The protocol forbids executing plan steps. Do not start implementation, even if the plan looks quick to carry out.
-6. **Report to the user**: the repository and generation branch pushed to, the commit hash, the protocol version followed, the open human gates, and where the lessons and knowledge items were or will be pushed.
+6. **Report to the user**: the repository and generation branch pushed to, the commit hash, the core and module versions followed, the rigour level, the open human gates, and where the lessons and knowledge items were or will be pushed.
 
 ## Writing rules
 - Write prose in British English (see the `proper-english` skill).
