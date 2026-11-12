@@ -93,7 +93,7 @@ Keep per round: seed, pass condition, score, p-value, the listener's remarks ver
 change made, and the commit. Credentials for the evidence branch or the repository never enter the record.
 
 ## Using it from a planning protocol
-The planning protocol (`protocols/planning-protocol.md`, section 3.10) adds step `S-LISTEN` and a gate to every
+The planning protocol (section 3.10, in the module `protocols/modules/audio.md`) adds step `S-LISTEN` and a gate to every
 plan that has the `audio` mode flag. `S-LISTEN` points to this skill and fixes the reference set, pass condition,
 demo list, gate id and round limit in the plan, so the implementer asks nothing.
 

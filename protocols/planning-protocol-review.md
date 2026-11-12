@@ -1,8 +1,41 @@
 ---
 # Planning protocol: change and review record
 
-Current version: **v3.15** (`planning-protocol.md`), recorded 2026-11-06.
-Status: **Round 15 completed — scheduled content refresh for courseware: content about a changing world is refreshed by a scheduled, append-only, fail-closed task following a checklist kept in the project repository (3.11 item 8, step `S-REFRESH`; skill `learning-exercise-site` section 10).** Previous: Round 14 completed — mutation sharding: an over-budget mutation job is split into a generated per-file or per-module matrix with CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and a completeness-checking aggregate job (new skill `mutation-sharding`).** Previous: Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+Current version: **core v4.0** (`planning-protocol.md`) with modules v1.0 (`modules/*.md`), recorded 2026-11-12.
+Status: **Round 16 completed — core and modules, rigour levels, integration step, gate records, untrusted-content rule, protocol self-measurement and simpler checkpoints, from a ranked review of v3.15.** Previous: Round 15 completed — scheduled content refresh for courseware: content about a changing world is refreshed by a scheduled, append-only, fail-closed task following a checklist kept in the project repository (3.11 item 8, step `S-REFRESH`; skill `learning-exercise-site` section 10).** Previous: Round 14 completed — mutation sharding: an over-budget mutation job is split into a generated per-file or per-module matrix with CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and a completeness-checking aggregate job (new skill `mutation-sharding`).** Previous: Round 13 completed — project nature and reference material: the protocol states that it builds hobby projects, prefers redistributable reference material, and lets hobby projects link to restrictive reference material instead of republishing it (new Global Rule 15).** Previous: Round 12 completed — source register: every external source checked in the research rounds is listed, with its content and licence, as one knowledge item pushed to the knowledge store (new step `R7`).** Previous: Round 11 completed — learning-exercise pathway: scored practice material (language exercises, quizzes, courses) as a gated, verifiable pathway (new mode flag `courseware`, new skill `learning-exercise-site`).
+
+## Requested changes (v3.15 → core v4.0, modules v1.0)
+
+Requested by the run owner: "Read the planning protocol … and rank all the ways you would improve it", answered with ten ranked proposals with full text; then "Apply all the proposals and push".
+
+**Version class: MAJOR** (Rule 0.8). Rule 16 is a safety rule and Rule 0.8 itself changes what a version means. **Plans needing an addendum: not decided in this change.** Unfinished plans built under v3.x keep running under the version they record; whether any of them should take Rule 16 or the 3.3 gate record by addendum is an open decision for the owner (below). No addendum programme was started.
+
+| Proposal (rank) | Where it lives |
+|---|---|
+| 1. Planner/implementer boundary: the final check required review reports that only implementation writes; the handoff omitted rules and templates the implementer must use | 1.1 layout (`reviews/` empty, `plan/TEMPLATES.md`, `scripts/check_knowledge_schema.py`); 3.5; 3.6 check; 3.7.1 implementation results header; 5.1 and 5.2 (via `modules/software-ci.md`) |
+| 2. Rigour level | Rule 0.6; 0.3.1; 0.3.6; R5; R7 and termination criteria; 3.6; 4.5; 4.6; 4.7; Phase 5 report |
+| 3. Integration | New 3.12 `S-INTEGRATE`; Rule 10 `G-INT`; 0.1 permission probe; 0.3.1; 3.5; 3.6; 3.7; 4.2 lens; 5.1 |
+| 4. Core plus modules, versions, volatile facts | Rules 0.7 to 0.9; `protocols/modules/` (eight files); 0.2 tiers `T1`–`T4`; change history moved here (below); runner labels, action tags, billing notes, environment classes and the model-tier map moved to five knowledge items in `qualitycoding/knowledge` |
+| 5. Pre-mortem convergence | Phase 4 items made headings 4.1–4.6; 4.3 failure path, likelihood, known risks, mitigation cost; 4.4; 4.5; Phase 5 report |
+| 6. Untrusted content | New Global Rule 16; 3.5; 4.2 lens; Phase 5 report |
+| 7. Gate record | 3.3 template and rules; Rule 10 |
+| 8. Simpler checkpoint | 1.2.1–1.2.3 replaced; `.checkpoints/RESUME.md`; snapshots dropped |
+| 9. Protocol feedback | 3.7.1 question 6; Appendix C `kind:protocol` and protocol lessons |
+| 10. Precision fixes | Rule 2; Rule 4 tie rule; independence of sources (1.3 termination criteria); 1.3 note on 1.3.6; horizontal rule moved after Rule 16; Phase 4 numbering; the "Global Rule 5" citation corrected in the v3.2 → v3.3 table below |
+
+Departures from the proposal text, each because the text as proposed would not have worked:
+- **A `figures` module** (`computational` or `publication`) holds 2C. The proposal put 2C in `computational`, but a `publication`-only plan needs it too.
+- **Only the listed sections move.** The proposal moved every bullet tagged for one profile; that would have scattered the `[software]` lenses, intake and tests across a module meant for CI. Text outside the listed sections stays in the core with its tags, and R2b (`[math, publication]`) stays in the core.
+- **Pointer headings.** Each moved section leaves its heading and a pointer in the core, so references by number (for example "3.10" in two skills) still resolve.
+- **3.12 item 7** (deployment needed earlier) was added: a courseware learner trial needs the site deployed, which can depend on the default branch that `S-INTEGRATE` merges into. 3.7 accordingly says the plan "includes" `S-INTEGRATE` rather than that it ends with it.
+- **0.1 load order.** Environment-class knowledge items are read before the probe only where the knowledge store is already readable; store access is checked later, in 0.3.7.
+- **Checkpoint fields** `rigour` and `diagnostic` (the 0.1 results) were added to the proposed `state.json`.
+
+Measured effect of the split (words read, counted from the files): v3.15 17,385; core 14,710. A `software` plan reads 16,357 (−5.9 %); `software` + `audio` 16,853 (−3.1 %); `software` + `courseware` 17,248 (−0.8 %); `math` + `computational` + `publication` 18,074 (+4.0 %, because `computational` implies `software`). The proposal estimated about a fifth less for a software plan; the new rules added about 1,500 words and absorbed most of the saving. Section 3.8 still restates much of the two mutation skills; trimming it to what the plan must record is the remaining saving.
+
+Checks run: every edit was applied by script with an assertion that its target occurred exactly once. A reference checker resolves every section, rule, phase and appendix reference in the core and modules (0 unresolved; the same checker finds the two broken references in v3.15, "Phase 4.4" and "4.6"). The five knowledge items pass the knowledge store's schema script. **None of the new text has been followed in a planning run.** The savings expected from rigour levels (proposal 2) and the pre-mortem change (proposal 5) are reasoned from loop bounds; the 3.7.1 question 6 table is how later runs will show whether they hold.
+
+Found while moving facts: the v3.15 statement that the Claude cloud sandbox is `stable` conflicts with two existing knowledge items recording `/home/claude` work directories vanishing between turns. The moved item records the conflict; the 0.1 probe decides per run.
 
 ## Requested changes (v3.14 → v3.15)
 
@@ -186,7 +219,7 @@ Hardening from the first implementation run of a v3.4 plan (guitar-amp-vst): rev
 
 | Request | Where it lives |
 |---|---|
-| Periodically save planning agent state and progress to the project repo as a checkpoint to prevent data loss on reset | Global Rule 5; Phase 1.2.1 |
+| Periodically save planning agent state and progress to the project repo as a checkpoint to prevent data loss on reset | Phase 1.2.1 (corrected in v4.0: this row cited Global Rule 5, which is Tier Fallback) |
 | Include full execution context (objective, call stack, step pointer, scratchpad, in-flight action) and active variable states in checkpoint so a fresh agent with no context can resume planning | Phase 1.2.2 |
 | When planning agent resumes, check the repo for the most recent checkpoint to pick up exactly where it left off | Phase 1.2.3 |
 
@@ -247,6 +280,7 @@ No valuable gaps. Considered and declined, because none would speed implementati
 | Undefined resumption discovery and reconciliation | Protocol lacked explicit procedure for locating the latest checkpoint, verifying disk artifact integrity, and resuming interrupted operations idempotently | 1.2.3 Zero-Context Resumption Protocol |
 
 ## Open decisions for the owner
+- Whether any unfinished plan built under v3.x should take Global Rule 16 (untrusted content) or the 3.3 gate record by addendum (Rule 0.8). Default if undecided: no addendum; v4.0 applies to plans created from now on.
 - The default lesson store proposed at intake is a repository named `Lessons` under the target repository's owner; the default knowledge store remains a repository named `knowledge` under the same owner. Each run asks at intake, so different locations can be given at any time.
 
 ## Corrections
@@ -255,3 +289,69 @@ No valuable gaps. Considered and declined, because none would speed implementati
 |---|---|---|
 | 2026-10-27 | 0.3.1 default knowledge-store proposal renamed `agent-knowledge` → `knowledge` | The default did not match the actual store (`qualitycoding/knowledge`); a planner adopted it silently and the human had to correct it mid-run. Recorded in the run as a lesson: never adopt the protocol default without probing and confirming with the human. |
 | 2026-11-01 | Protocol default split: lessons → `Lessons`, knowledge items → `knowledge` | The Lessons repo already exists as the canonical lesson store; keeping the protocol default combined risked lessons landing in the wrong repository at `S-KNOW`. |
+
+## Change summaries v3 to v3.15 (moved from the protocol header in v4.0)
+
+These were the summaries at the top of `planning-protocol.md` until v3.15, kept here unchanged. The detailed record of each change is in the sections above.
+
+> **Changes from v3.14 (v3.15):**
+> * Scheduled content refresh for courseware (3.11 item 8, intake 0.3.1, 5.1 final check; skill `learning-exercise-site` section 10): a `courseware` plan whose content describes a changing world records a refresh cadence at intake and plans a scheduled task that adds new units append-only (new dated ids, old units and saved scores untouched), follows a per-run checklist kept in the project repository, publishes only when the validator and browser tests pass, and confirms CI, the deployment and a live-site check for its commit before reporting. A static site never regenerates by itself; without this step the content silently goes stale.
+>
+> **Changes from v3.13 (v3.14):**
+> * Mutation sharding (3.8 `S-MUTATE` and 3.9 mutation-job placement, new skill `mutation-sharding`): when the priced mutation job exceeds its runtime, memory or install budget, the plan designs a generated per-file or per-module shard matrix with explicit CPU, memory, parallelism and step limits, bounded three-attempt tool installation, per-shard report gates and one completeness-checking aggregate job as the only required status.
+>
+> **Changes from v3.12 (v3.13):**
+> * Project nature and reference material (new Global Rule 15; intake 0.3.1; R7 permitted-use values; 3.10 reference set and evidence delivery; Phase 5 report and 5.1 final check; skill `audio-blind-listening-validation`): the protocol states from the outset that it builds hobby projects, and intake records `project.nature`. Reference material (anything the work is compared against or learns from that does not become part of the deliverable) must be **redistributable wherever the search allows**, and the research records what was searched. Where it cannot be, a hobby project may use restrictive material as a **private reference**: the licence is read from the source and allows personal download and use, the origin (URL, author, licence, date, sha256, terms URL) is recorded, the material is never committed, pushed or attached to any public artefact, and it is downloaded into the sandbox on demand (or by the human at a gate if the sandbox cannot reach it). Publication of anything derived from a reference fails closed.
+>
+> **Changes from v3.11 (v3.12):**
+> * Source register (new research step `R7`, Rule 12, Appendix B): at the end of the research rounds, every external source checked, whether it was used, corroborating, rejected or unreachable, is listed with what it contains, its licence and terms of use, what the run may do with it, and where it was used. The list is one knowledge item tagged `kind:source-register`. It travels with the run's other knowledge items and is pushed to the knowledge store at gate `G-003`. Round logs carry a `Sources checked` section so nothing is lost if a round is interrupted. A later run loads the register in R0 to avoid re-checking sources, but it never counts as a source for any claim. The layout (1.1), the closing retrospective (3.7.1), the closing push (3.7.2), the final check (5.1) and the Phase 5 report verify it.
+>
+> **Changes from v3.10 (v3.11):**
+> * Learning-exercise pathway (new mode flag `courseware`, new section 3.11 step `S-LEARN` and gate `G-LEARN`, new skill `learning-exercise-site`): a plan whose deliverable is practice material a learner is scored on (language exercises, quizzes, courses) fixes the learning design at intake, sources and dates its content, labels register (slang, colloquial, idiom), freezes item and scoring rules with a data validator and browser tests that use a fake speech API, carries a hosting preflight for settings an agent cannot change, and ends with a learner trial on the learner's own device. Intake (0.1, 0.3.1), gates (3.3), the 3.6 cold read, the Phase 4 lenses and the 5.1 final check verify it.
+>
+> **Changes from v3.9 (v3.10):**
+> * Audio listening validation (new mode flag `audio`, new section 3.10 step `S-LISTEN`, new skill `audio-blind-listening-validation`): a plan that generates audio or audio tooling carries an explicit listening phase — a blind A/B test against reference recordings and a set of demos rendered from event files, delivered as a CI evidence bundle for phone listening, judged at a human gate with fixed questions and a pass condition frozen beforehand, and iterated on what the listener heard, with a round limit. Intake (0.3.1), human gates (3.3), the 3.6 cold-read check and the 5.1 final consistency check verify it.
+>
+> **Changes from v3.8 (v3.9):**
+> * Mutation testing in CI (3.8 `S-MUTATE`, new skill `mutation-testing-in-ci`): the plan prices the mutation job before choosing when it runs (measured baseline test time, mutant count, estimated job time against a runtime budget) and pre-decides a three-tier trigger strategy — incremental runs on pull requests and default-branch pushes scoped to the changed mutable files, a scheduled full run, and an on-demand dispatch — with one always-running aggregator job as the only required status, so the job is neither run needlessly on every push nor silently skipped. The score gate is computed from the tool's report, not its exit status, with post-conditions (report exists, minimum mutant count); scheduled failures have a named owner.
+> * The 3.6 cold-read check, the 3.9 CI matrix and the 5.1 final consistency check verify the mutation strategy when `S-MUTATE` is included.
+>
+> **Changes from v3.7 (v3.8):**
+> * CI platform matrix (3.9 `[software]`): the CI runner matrix becomes a plan artifact derived from the supported platforms recorded at intake (0.3.2) — versioned runner labels instead of `-latest`, ARM64 jobs, a libc-variant container job, and an oldest-supported-toolchain job by default; QEMU-VM guests (BSDs, Solaris/illumos) and emulated CPU architectures on demand; Android jobs (KVM-accelerated emulator on Linux runners, matrix over API levels) and iOS jobs (macOS runners only, pinned Xcode, explicitly booted simulator, unsigned simulator tests, release signing behind `G-002`) when intake includes mobile platforms. Every intake-declared platform maps to a CI job or a recorded `D-###` waiver; the cold read (3.6), the pre-mortem lenses (Phase 4), and the final check (5.1) verify the mapping.
+>
+> **Changes from v3.6 (v3.7):**
+> * Lesson store: lessons recorded under Rule 11 are ultimately pushed to the `Lessons` repository (default: a repository named `Lessons`, owned by the same account as the target repository). The knowledge store remains the destination for Rule 12 knowledge items; gate `G-003`/`S-KNOW` pushes the two stores separately.
+> * Intake, access-check, checkpoint, R0, and closing-step language now distinguishes the lesson store from the knowledge store; Appendix C gives the layout and schema check for both repositories.
+>
+> **Changes from v3.5 (v3.6):**
+> * Ephemeral-environment protections (0.1 environment-class probe; 1.5 `[ephemeral]`): on sandboxed platforms whose containers are recycled (temp dirs wiped, staged toolchains lost, background processes reaped at call boundaries or deadline kills), the plan and execution assume any container may die at any turn boundary — durable-mount discipline, turn-start restaging with exec-bit restoration, checkpointed resumable builds, ordering invariants, right-sizing steps to container lifetimes, CI for long work, and evidence honesty for locally blocked dimensions. Applies only when the environment probe classifies the platform as recycling (Kimi cloud: observed ephemeral; Kimi localhost: unknown → treat as ephemeral; Claude cloud/remote: observed stable → N/A).
+> * Push cadence (Global Rule 6), active on **all** platforms: after every successful chunk — a step turning green, an amendment round, a review or gate record — commit and push immediately, verify with `ls-remote`, retry transient failures with backoff, and report mismatches.
+>
+> **Changes from v3.4 (v3.5):**
+> * Honest verification (Rule 14): a check that cannot fail is not a check — no swallowed failures (`|| true`, `continue-on-error`), artifact post-conditions in every Done-when, budgets gate instead of inform, regression baselines are bootstrapped, and performance targets are per-runner-class with pre-decided miss rules.
+> * Command & pin verification (1.3.6): literal commands and flags in the plan are spike-run or doc-verified against the *pinned* tool version, and every pinned version is checked to exist, before the plan freezes.
+> * Deviation completeness: every substitution (version pin, added package, timeout, config file) is logged in `DEVIATIONS.md` the moment it is made; the retrospective verifies the log against the diff (3.7.1).
+>
+> **Changes from v3.3 (v3.4):**
+> * Assumption & Premise Audit (Phase 4.7): after pre-mortem convergence, a fresh-context adversarial audit of every `A-###` assumption and the premises behind decisions and load-bearing claims. Falsified items are recorded as lessons (Rule 11) and knowledge items (Rule 12), and trigger the amendment machinery (2E.4) so the plan is iterated to apply the correction.
+> * Code review steps (3.8): every `software` plan includes a traditional code review step (`S-REVIEW`) and an adversarial review step (`S-ADVERSARIAL`) before packaging/release; mutation testing (`S-MUTATE`) is an optional step with a pre-decided score target.
+>
+> **Changes from v3.2 (v3.3):**
+> * Periodic Checkpointing (1.2.1): the planning agent periodically saves its state, active variables, and execution context to `.checkpoints/state.json`, surviving process termination or resets without data loss.
+> * Full Context & Variable Serialization (1.2.2): checkpoint schema captures the active objective, hierarchical call stack, step pointer, working scratchpad, open questions, candidate decisions, uncommitted drafts, and runtime variable store.
+> * Zero-Context Resumption Protocol (1.2.3): on startup, checks the repo for the most recent checkpoint, verifies artifact hashes, rehydrates variables and context, and picks up exactly where it left off.
+>
+> **Changes from v3.1 (v3.2):**
+> * Lessons (Rule 11): every correction to execution is recorded as a classified lesson.
+> * Knowledge base (Rule 12): research findings, and facts discovered later, are recorded as classified knowledge items.
+> * Knowledge store (Rule 13): lessons and knowledge persist across tasks; research starts by loading the relevant ones (R0).
+> * Closing steps (3.7): every plan ends with a retrospective, then a request (gate `G-003`) for where to push the run's lessons and knowledge.
+>
+> **Changes from v3:**
+> * Adds profiles (Rule 0), so only the sections relevant to the task apply.
+> * Restores every v2 software provision under the `software` profile: the security, data-corruption, unrecoverable-state, and feature-failure severities; the deployment pre-mortem; and the scale/performance, security, and operational lenses.
+> * Adds a software intake block and software test categories (security, performance, operational).
+> * Adds an Exploration sub-phase (2A.0) for mathematical work whose statements are not yet known.
+> * Makes every consistency check profile-conditional.
+>
+> With only the `software` profile active, this protocol contains all of v2. With `math` + `computational` + `publication` active, it contains all of v3.
