@@ -32,6 +32,7 @@ Longer operating procedures that an AI agent follows end to end, rather than ski
 | [planning-v3.9-addendum-control](protocols/planning-v3.9-addendum-control.md) | Cross-repository controller for upgrading the 33 qualitycoding code repositories it lists to planning protocol v3.9. Includes exact source branches/commits, execution and recovery rules, a resumable JSON status ledger (`protocols/planning-v3.9-addendum-status.json`), and a mechanical verifier (`protocols/v39_addendum_verify.py`). |
 | [blind-listening-test-execution-plan](protocols/blind-listening-test-execution-plan.md) | Execution plan for running repeatable blind listening gates in `oildrumkit`, `sitar`, `chinese-strings` and `oildrumkit-vcvrack`, so that a fresh agent can resume from the committed records. Based on the `audio-blind-listening-validation` skill. |
 | [oildrumkit-vcvrack-plan](protocols/oildrumkit-vcvrack-plan.md) | Execution plan (protocol v3.3) for fixing known defects in and hardening the Oil Drum Kit VCV Rack 2 module in `oildrumkit-vcvrack`. |
+| [lessons-index](skills/lessons-index) | Finds and loads lessons from the generated tag index in the private qualitycoding/Lessons repository: tags the task from the controlled vocabulary, matches `domain:`/`tech:` tags plus `applies:all`, ranks by severity then newest first, skips non-active lessons. Includes the lookup script and the taxonomy reference. |
 
 ## Layout
 
